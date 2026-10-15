@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Privacy notice — Tabi Tabi Po · Z Hostel</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👁️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Barlow+Condensed:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<style>
+  .doc{ max-width:760px; margin:0 auto; padding:calc(40px + env(safe-area-inset-top,0px)) 20px 80px; }
+  .doc h1{ font-size:clamp(34px, 6vw, 56px); margin:18px 0 8px; }
+  .doc h2{ font-family:var(--display); font-weight:800; text-transform:uppercase; font-size:19px; margin:34px 0 10px; color:var(--gold); }
+  .doc p, .doc li{ color:var(--bone-2); }
+  .doc ul{ padding-left:20px; }
+  .doc b{ color:var(--bone); }
+  .back{ font-family:var(--label); letter-spacing:.2em; text-transform:uppercase; font-size:14px; color:var(--bone-2); text-decoration:none; }
+</style>
+</head>
+<body>
+<main class="doc">
+  <a class="back" href="./">← Back to Tabi Tabi Po</a>
+  <h1 class="display">Privacy notice</h1>
+  <p class="muted">Tabi Tabi Po · Salakot Opening Night · Last updated October 2026</p>
+
+  <h2>Who we are</h2>
+  <p><b data-cfg="dataController">Flash Packer Inc. (Z Hostel)</b>, 5660 Don Pedro Street, Poblacion, Makati, is responsible for the personal data collected on this site. We follow the Philippine Data Privacy Act of 2012 (Republic Act No. 10173).</p>
+
+  <h2>What we collect</h2>
+  <ul>
+    <li><b>RSVP:</b> your name, email, mobile number (optional), how many friends you're bringing, and your answers to the optional questions (costume, drink preference, where you're staying, payment preference, interests, age bracket, notes).</li>
+    <li><b>At the door:</b> the time your ticket is scanned. Staff check your ID visually; we don't record ID details.</li>
+    <li><b>How you found us:</b> if you arrived through a promoter or partner link, we record that link's name.</li>
+    <li><b>Sponsor inquiries:</b> company, contact name, email, mobile (optional), and your message.</li>
+  </ul>
+
+  <h2>Why we use it</h2>
+  <ul>
+    <li>To put you on the guest list, issue your QR ticket, and check you in at the door.</li>
+    <li>To plan the night: headcount, bar stock, staffing, and the costume contest.</li>
+    <li>To contact you about this event if something changes (for example, a schedule update).</li>
+    <li><b>Only if you ticked the optional box:</b> to send you news and offers about future Z Hostel and Salakot events.</li>
+    <li>For sponsor inquiries: to reply and discuss a partnership.</li>
+  </ul>
+  <p>We process your data based on your consent. You can withdraw it at any time (see "Your rights").</p>
+
+  <h2>Who we share it with</h2>
+  <p>We <b>do not sell</b> your personal data, and we <b>do not give your personal details to sponsors</b>. Sponsors may receive anonymous totals only (for example, "450 guests attended").</p>
+  <p>We use these service providers to run the site, under their own security and privacy terms:</p>
+  <ul>
+    <li><b>Supabase</b>: stores the guest list (servers in Tokyo, Japan).</li>
+    <li><b>GitHub Pages</b>: hosts the website. It doesn't receive your RSVP details.</li>
+  </ul>
+
+  <h2>How long we keep it</h2>
+  <p>We delete RSVP and check-in data <b><span data-cfg="retentionDays">90</span> days after the event</b>. If you opted in to updates, we keep your name and email for that purpose until you unsubscribe. Sponsor inquiries are kept for up to one year.</p>
+
+  <h2>Your rights</h2>
+  <p>Under the Data Privacy Act you can ask to <b>access, correct, or delete</b> your data, <b>object</b> to its use, and <b>withdraw consent</b>, including unsubscribing from updates. Email us and we'll respond within 15 days. You can also file a complaint with the National Privacy Commission (privacy.gov.ph).</p>
+
+  <h2>Contact</h2>
+  <p>Privacy questions and requests: <a id="privacy-mail" href="mailto:marketing@zhostel.com">marketing@zhostel.com</a></p>
+</main>
+<script src="config.js"></script>
+<script>
+  (function () {
+    var C = window.TTP_CONFIG || {};
+    document.querySelectorAll("[data-cfg]").forEach(function (el) { var v = C[el.getAttribute("data-cfg")]; if (v) el.textContent = v; });
+    if (C.privacyEmail) { var a = document.getElementById("privacy-mail"); a.href = "mailto:" + C.privacyEmail; a.textContent = C.privacyEmail; }
+  })();
+</script>
+</body>
+</html>

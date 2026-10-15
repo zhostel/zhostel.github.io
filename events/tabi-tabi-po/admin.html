@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin — Tabi Tabi Po</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👁️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Barlow+Condensed:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+
+<main class="lock" id="lock">
+  <form class="lock-box" id="lock-form" novalidate>
+    <img src="assets/z-hostel-logo.png" alt="Z Hostel" width="88" height="88" onerror="this.hidden=true">
+    <h1 class="display">Guest list</h1>
+    <p class="lede">Tabi Tabi Po · staff only. Enter the admin passcode.</p>
+    <label class="field"><span>Passcode</span><input type="password" name="passcode" autocomplete="current-password" required></label>
+    <p class="error" id="lock-error" role="alert"></p>
+    <button class="btn" type="submit" id="lock-submit">Unlock</button>
+  </form>
+</main>
+
+<div class="dash" id="dash" hidden>
+  <header class="dash-head">
+    <div class="dash-title">
+      <img src="assets/z-hostel-logo.png" alt="" width="40" height="40" onerror="this.hidden=true">
+      <div>
+        <h1 class="display">Tabi Tabi Po</h1>
+        <p class="muted" id="last-updated">Loading…</p>
+      </div>
+    </div>
+    <div class="dash-actions">
+      <button class="btn small" type="button" id="open-scan">Check in guests</button>
+      <button class="btn small ghost" type="button" id="refresh">Refresh</button>
+      <button class="btn small ghost" type="button" id="export">Export CSV</button>
+      <button class="btn small ghost" type="button" id="open-pass">Change passcode</button>
+      <button class="btn small ghost" type="button" id="logout">Log out</button>
+    </div>
+  </header>
+
+  <p class="error banner" id="dash-error" role="alert"></p>
+
+  <section class="stats" aria-label="Summary">
+    <div class="stat"><b id="s-total">0</b><span>RSVPs</span></div>
+    <div class="stat"><b id="s-in">0</b><span id="s-in-label">Checked in tonight</span></div>
+    <div class="stat"><b id="s-n1">0</b><span id="s-n1-label">Fri RSVPs</span></div>
+    <div class="stat"><b id="s-n2">0</b><span id="s-n2-label">Sat RSVPs</span></div>
+    <div class="stat"><b id="s-heads">0</b><span>Est. headcount</span></div>
+    <div class="stat"><b id="s-survey">0%</b><span>Did 3+ questions</span></div>
+    <div class="stat"><b id="s-z">0</b><span>Staying at Z Hostel</span></div>
+    <div class="stat"><b id="s-opt">0</b><span>Opted in to updates</span></div>
+    <div class="stat"><b id="s-sp">0</b><span>Sponsor inquiries</span></div>
+  </section>
+
+  <section aria-labelledby="bd-title">
+    <h2 id="bd-title" class="section-h">Survey breakdown</h2>
+    <div class="breakdowns" id="breakdowns"></div>
+  </section>
+
+  <section aria-labelledby="links-title" class="links-box">
+    <h2 id="links-title" class="section-h">Promoter &amp; partner links</h2>
+    <p class="muted">Give each promoter, DJ, sponsor or channel its own link. RSVPs from it show up under "Came from".</p>
+    <div class="link-builder">
+      <label class="field"><span>Name (letters, numbers, - _)</span><input type="text" id="lb-ref" placeholder="e.g. dj-marco, globe, ig-story" maxlength="60"></label>
+      <label class="field"><span>Guests get tagged as</span>
+        <select id="lb-type">
+          <option value="">Regular guest</option>
+          <option value="sponsor">Sponsor guest</option>
+          <option value="media">Media</option>
+          <option value="artist">Artist</option>
+          <option value="vip">VIP</option>
+        </select></label>
+    </div>
+    <div class="link-out"><input type="text" id="lb-out" readonly aria-label="Generated link"><button class="btn small" type="button" id="lb-copy">Copy link</button></div>
+  </section>
+
+  <section aria-labelledby="list-title">
+    <div class="list-head">
+      <h2 id="list-title" class="section-h">All guests <span class="muted" id="list-count"></span></h2>
+      <div class="filters">
+        <input type="search" id="search" placeholder="Search name, email, phone, ticket, costume" aria-label="Search guests">
+        <select id="status-filter" aria-label="Filter by status">
+          <option value="">All statuses</option>
+          <option value="registered">Registered</option>
+          <option value="checked_in">Checked in</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Name</th><th>Email</th><th>Phone</th><th>Party</th><th>Age</th><th>Costume</th>
+          <th>Staying</th><th>Drink</th><th>Payment</th><th>Interests</th><th>Notes</th>
+          <th>Ticket</th><th>Nights</th><th>Type</th><th>Came from</th><th>Updates</th><th>Status / check-ins</th><th>Submitted</th><th><span class="sr-only">Actions</span></th>
+        </tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <p class="empty" id="empty" hidden>No guests match your search.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="sp-title" class="sp-section">
+    <div class="list-head">
+      <h2 id="sp-title" class="section-h">Sponsor inquiries <span class="muted" id="sp-count"></span></h2>
+    </div>
+    <div class="table-wrap">
+      <table class="sp-table">
+        <thead><tr><th>Company</th><th>Contact</th><th>Email</th><th>Phone</th><th>Interested in</th><th>Message</th><th>Received</th><th>Status</th></tr></thead>
+        <tbody id="sp-rows"></tbody>
+      </table>
+      <p class="empty" id="sp-empty">No sponsor inquiries yet.</p>
+    </div>
+  </section>
+</div>
+
+<dialog class="modal scan-modal" id="scan-modal" aria-labelledby="scan-title">
+  <div class="modal-head">
+    <h2 id="scan-title" class="display">Door check-in</h2>
+    <button class="linkbtn" type="button" id="close-scan">Close</button>
+  </div>
+  <div id="reader" class="reader"></div>
+  <p class="muted" id="cam-msg">Point the camera at the guest's QR code.</p>
+  <form class="manual" id="manual-form">
+    <label class="sr-only" for="manual-code">Ticket code</label>
+    <input type="text" id="manual-code" placeholder="Or type the code, e.g. TTP-7KX2QM" autocapitalize="characters" autocomplete="off">
+    <button class="btn small" type="submit">Check in</button>
+  </form>
+  <div class="scan-result" id="scan-result" hidden></div>
+</dialog>
+
+<dialog class="modal" id="pass-modal" aria-labelledby="pass-title">
+  <form id="pass-form" novalidate>
+    <h2 id="pass-title" class="display">Set a new passcode</h2>
+    <p class="lede" id="pass-why">Choose a new admin passcode. Share it only with staff who need the guest list.</p>
+    <label class="field"><span>New passcode (12+ characters)</span><input type="password" name="newpass" autocomplete="new-password" minlength="12" required></label>
+    <label class="field"><span>Type it again</span><input type="password" name="newpass2" autocomplete="new-password" required></label>
+    <p class="error" id="pass-error" role="alert"></p>
+    <div class="modal-actions">
+      <button class="btn ghost small" type="button" id="pass-cancel">Cancel</button>
+      <button class="btn small" type="submit">Save passcode</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+<script src="config.js"></script>
+<script src="assets/js/admin.js"></script>
+</body>
+</html>
