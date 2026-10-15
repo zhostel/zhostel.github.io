@@ -6,7 +6,8 @@
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var DATA = { inquiries: [], partners: [], list: [], staff: [] };
-  var ME = null, IS_OWNER = false, TAB = "overview";
+  var ME = null, IS_OWNER = false, TAB = "bookings";
+  window.ZADMIN = { sb: sb, esc: esc, when: when, csv: csv };
 
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
   function when(t) { var d = new Date(t); return d.toLocaleString("en-PH", { month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit", timeZone: "Asia/Manila" }); }
@@ -81,6 +82,7 @@
 
   function render() {
     var p = $("#panel");
+    if (window.ZBA && window.ZBA.views[TAB]) { window.ZBA.views[TAB](p); return; }
     if (TAB === "overview") p.innerHTML = overview();
     else if (TAB === "inquiries") p.innerHTML = itemsView("inquiries");
     else if (TAB === "partners") p.innerHTML = itemsView("partners");
