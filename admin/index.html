@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=DM+Sans:opsz,wght@9..40,400..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/z.css?v=20261015">
+<link rel="stylesheet" href="/assets/css/z.css?v=20261016">
 <style>
   .adm-top { display:flex; align-items:center; gap:14px; height:64px; border-bottom:1px solid var(--line); }
   .adm-top .who { margin-left:auto; font-size:14px; color:var(--muted); }
@@ -42,6 +42,23 @@
   .empty { padding:40px; text-align:center; color:var(--muted); border:1px dashed var(--line-2); border-radius:12px; }
   table.data-table td { vertical-align:top; }
   .login { max-width:460px; margin:10vh auto; }
+  .badge { border: 0; border-radius: 999px; padding: 6px 12px; font: 700 12px var(--body); letter-spacing: .04em; cursor: pointer; white-space: nowrap; }
+  .pay-unpaid { background: rgba(242,193,78,.18); color: var(--warn); } .pay-partial { background: rgba(242,193,78,.3); color: var(--warn); }
+  .pay-paid { background: rgba(87,199,138,.18); color: var(--ok); } .pay-refunded { background: var(--surface-3); color: var(--muted); }
+  .st-confirmed { background: rgba(255,91,46,.16); color: var(--accent-2); } .st-checked_in { background: rgba(87,199,138,.22); color: var(--ok); }
+  .st-checked_out { background: var(--surface-3); color: var(--ink-2); } .st-cancelled, .st-no_show { background: var(--surface-3); color: var(--muted); text-decoration: line-through; }
+  .bk-table td { font-size: 14px; } .note-in { min-height: 36px !important; padding: 6px 10px !important; font-size: 14px !important; min-width: 160px; }
+  .zmodal { position: fixed; inset: 0; z-index: 90; background: rgba(0,0,0,.7); display: flex; justify-content: center; align-items: flex-start; padding: 5vh 16px; overflow-y: auto; }
+  .zmodal-card { position: relative; width: 100%; max-width: 760px; background: var(--surface); border: 1px solid var(--line-2); border-radius: 16px; padding: 26px; box-shadow: var(--shadow); }
+  .zmodal-x { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border-radius: 50%; border: 0; background: var(--surface-3); color: var(--ink); font-size: 20px; cursor: pointer; }
+  table.cal th, table.cal td { padding: 4px; text-align: center; } table.cal td:first-child, table.cal th:first-child { text-align: left; min-width: 170px; }
+  .cal-day { background: none; border: 0; color: var(--ink-2); font: 600 12px var(--body); cursor: pointer; } th.we .cal-day { color: var(--accent-2); }
+  .cal-cell { display: inline-block; min-width: 46px; padding: 6px 4px; border-radius: 8px; border: 1px solid transparent; font: 700 12px var(--body); cursor: pointer; color: var(--ink); }
+  .cal-cell.open { background: rgba(87,199,138,.14); } .cal-cell.low { background: rgba(242,193,78,.2); } .cal-cell.full { background: rgba(255,91,46,.28); } .cal-cell.closed { background: var(--surface-3); color: var(--muted); }
+  .cal-cell.ovr { border-color: var(--ink-2); border-style: dashed; }
+  .rate-line { display: flex; align-items: center; gap: 8px; margin: 3px 0; } .rate-line span { min-width: 120px; font-size: 14px; }
+  .demand { display: flex; align-items: flex-end; gap: 3px; height: 90px; margin-top: 8px; } .demand i { flex: 1; background: var(--accent); border-radius: 3px 3px 0 0; min-height: 2px; }
+
 </style>
 </head>
 <body>
@@ -65,7 +82,10 @@
 
   <section id="app" hidden>
     <div class="tabs" role="tablist">
-      <button role="tab" data-tab="overview" aria-selected="true">Overview</button>
+      <button role="tab" data-tab="bookings" aria-selected="true">Bookings <span class="count" id="c-bk"></span></button>
+      <button role="tab" data-tab="calendar">Calendar</button>
+      <button role="tab" data-tab="rates">Rates &amp; add-ons</button>
+      <button role="tab" data-tab="overview">Marketing</button>
       <button role="tab" data-tab="inquiries">Inquiries <span class="count" id="c-inq"></span></button>
       <button role="tab" data-tab="partners">Sponsors <span class="count" id="c-par"></span></button>
       <button role="tab" data-tab="list">Z Street list <span class="count" id="c-list"></span></button>
@@ -77,7 +97,8 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
-<script src="/assets/js/config.js?v=20261015"></script>
-<script src="/assets/js/admin.js?v=20261015"></script>
+<script src="/assets/js/config.js?v=20261016"></script>
+<script src="/assets/js/admin-bookings.js?v=20261016"></script>
+<script src="/assets/js/admin.js?v=20261016"></script>
 </body>
 </html>

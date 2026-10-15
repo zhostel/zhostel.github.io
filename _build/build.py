@@ -80,14 +80,17 @@ def header(active, ribbon=True):
     <a class="brand" href="/"><img src="/assets/img/z-logo-180.png" alt="" width="40" height="40"><span>Z Hostel</span></a>
     <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links">Menu</button>
     <ul class="nav-links" id="nav-links">{items}</ul>
-    <a class="btn sm book" href="{SITE['book']}" target="_blank" rel="noopener">Book now</a>
+    <a class="btn sm book" href="/book/">Book a bed</a>
   </nav>
 </header>
 <main id="main">
 """
 
-def footer(scripts=""):
+def footer(scripts="", mbook=True):
+    mb = ('<div class="mbook" role="region" aria-label="Book"><div><b>Stay on the party street</b><span>Dorm beds &amp; private rooms</span></div>'
+          '<a class="btn" href="/book/">Book a bed</a></div><script>document.body.classList.add("has-mbook")</script>') if mbook else ""
     return f"""</main>
+{mb}
 <footer class="site-footer">
   <div class="wrap">
     <div class="foot-grid">
@@ -142,6 +145,8 @@ def footer(scripts=""):
 </footer>
 <script src="/assets/js/config.js?v={VER}"></script>
 <script src="/assets/js/z.js?v={VER}" defer></script>
+{events_json()}
+<script src="/assets/js/book.js?v={VER}" defer></script>
 {scripts}
 </body>
 </html>
@@ -159,8 +164,40 @@ PAGES = []
 def stats_bar(items=STATS):
     return '<div class="stats">' + "".join(f'<div class="stat"><b>{E(v)}</b><span>{E(l)}</span></div>' for v, l in items) + "</div>"
 
+def room_card(r):
+    n, i, sleeps, kind, d, _ = r
+    fr = ROOM_FROM.get(n)
+    rate = f'<b>from ₱{fr:,}</b><span>/ {"bed" if kind == "Dorm" else "room"} / night</span>' if fr else f'<b>{E(sleeps)}</b>'
+    slug = ROOM_SLUG.get(n, "")
+    return f'''<article class="card reveal"><a class="card-media" href="/book/?room={slug}" tabindex="-1" aria-hidden="true">{img(i, n + " at Z Hostel")}</a>
+<div class="card-body"><span class="tag">{E(kind)} · {E(sleeps)}</span><h3>{E(n)}</h3><p>{E(d[:120].rsplit(" ",1)[0])}…</p><div class="meta">{rate}</div>
+<div class="card-foot btns"><a class="btn sm" href="/book/?room={slug}">Book this</a></div></div></article>'''
+
+def booker_bar(checkin="", checkout="", note="Live availability and secure checkout. Best for 1–8 guests.", cls=""):
+    di = f' data-checkin="{checkin}" data-checkout="{checkout}"' if checkin else ""
+    opts = "".join(f'<option value="{n}"{" selected" if n == 2 else ""}>{n} guest{"s" if n > 1 else ""}</option>' for n in range(1, 9))
+    return f'''<form class="booker {cls}"{di} aria-label="Check availability">
+  <div class="field"><label for="bk-in-{cls}">Check-in</label><input id="bk-in-{cls}" name="checkin" type="date" required></div>
+  <div class="field"><label for="bk-out-{cls}">Check-out</label><input id="bk-out-{cls}" name="checkout" type="date" required></div>
+  <div class="field g"><label for="bk-g-{cls}">Guests</label><select id="bk-g-{cls}" name="guests">{opts}</select></div>
+  <button class="btn" type="submit">Check availability</button>
+  <p class="note">{E(note)} Group of 9+? <a href="/contact/?type=group">Ask for group rates</a>.</p>
+</form>'''
+
+def events_json():
+    ev = [{"name": "Tabi Tabi Po at Salakot", "start": "2026-10-30", "end": "2026-10-31", "when": "Oct 30–31",
+           "note": "Salakot opening night, steps from your bed. RSVP free at zhostel.com/events/tabi-tabi-po."},
+          {"name": "THE ODY-Z street party", "start": "2026-11-20", "end": "2026-11-20", "when": "Nov 20",
+           "note": "Z Hostel is home base for the whole block party. Party weekends sell out first."}]
+    return f'<script>window.Z_EVENTS={json.dumps(ev)};</script>'
+
+def book_link(date_iso, nights=1):
+    import datetime as _d
+    d = _d.date.fromisoformat(date_iso[:10]); o = d + _d.timedelta(days=nights)
+    return f"/book/?checkin={d.isoformat()}&checkout={o.isoformat()}"
+
 def stay_cta(text="Stay on the street"):
-    return f'<a class="btn" href="{SITE["book"]}" target="_blank" rel="noopener">{E(text)}</a>'
+    return f'<a class="btn" href="/book/">{E(text)}</a>'
 
 # ------------------------------------------------------------------ chart
 def bar_chart(values, title, unit="people", w=640, h=260, label_every=True):
@@ -258,12 +295,10 @@ def series_card(s, compact=False):
         nxt = E(nxt) + " " + confirm(s["confirm_next"])
     else:
         nxt = E(nxt)
-    rec = f'<div class="meta"><span>Record <b>{s["record"][0]}</b> ({s["record"][1]})</span></div>' if s["record"] else '<div class="meta"><span>Returning each December</span></div>'
-    if s["slug"] == "holiday":
-        rec = f'<div class="meta"><span>{confirm("returning or new (did Dec 2024 run?)", "Year-end on Z Street")}</span></div>'
+    rec = ""
     was = f'<span class="tag">Formerly {E(s["formerly"])}</span>' if s.get("formerly") else ""
     past = f'<p class="small muted">2026 edition: {E(s["last_2026"])}</p>' if s.get("last_2026") else ""
-    hot = '<span class="tag hot live">Next up</span>' if s["slug"] == "halloween" else f'<span class="tag">{E(s["when"])}</span>'
+    hot = '<span class="tag hot live">Next up</span>' if s["slug"] == "halloween" else (f'<span class="tag">In the works</span>' if s.get("future") else f'<span class="tag">{E(s["when"])}</span>')
     return f'''<article class="card reveal">
   <a class="card-media" href="/z-street/{s["slug"]}/" tabindex="-1" aria-hidden="true">{img(s["img"], "", sizes="(max-width: 700px) 100vw, 33vw")}</a>
   <div class="card-body">
@@ -273,7 +308,7 @@ def series_card(s, compact=False):
     {rec}
     {past}
     <p class="small"><b>Next:</b> {nxt}</p>
-    <div class="card-foot btns"><a class="btn sm" href="/z-street/{s["slug"]}/">Details</a><a class="btn sm ghost" href="{SITE["book"]}" target="_blank" rel="noopener">Stay for the party</a></div>
+    <div class="card-foot btns"><a class="btn sm" href="/z-street/{s["slug"]}/">Details</a><a class="btn sm ghost" href="/book/">Stay for the party</a></div>
   </div>
 </article>'''
 
@@ -311,7 +346,7 @@ def faq_items(series=None):
     if series is None or series["slug"] == "halloween":
         qa.append(("Is there a costume contest?", "Yes. Halloween on Z Street always has costume contests and themed gates. Go full character."))
     qa += [
-        ("Can I stay nearby?", f'Yes. Z Hostel is on the street. Event weekends sell out, so <a href="{SITE["book"]}" target="_blank" rel="noopener">book early</a>.'),
+        ("Can I stay nearby?", f'Yes. Z Hostel is on the street. Event weekends sell out, so <a href="/book/">book early</a>.'),
         ("I lost something. Who do I contact?", f'Message the Z Hostel front desk on <a href="tel:{SITE["phone2_tel"]}">{SITE["phone2"]}</a> or <a href="/contact/">send us a note</a> with what you lost and where.'),
         ("How do I get there, and where do I park?", 'Poblacion is walkable from the Makati CBD; take a ride-hail drop-off at Kalayaan Ave. or Fermina St. Streets around the party are closed on the night, so parking is very limited. <a href="/assets/docs/directions-to-z.pdf">Directions to Z (PDF)</a>.'),
     ]
@@ -368,7 +403,7 @@ def upcoming_cards():
     <div class="meta"><span><b>{E(u["date_label"])}</b></span><span>{E(u["where"])}</span></div>
     <div class="countdown" data-countdown="{u["start_iso"]}" aria-label="Countdown to {E(u["name"])}"></div>
     <p>{E(u["blurb"])}</p>
-    <div class="btns"><a class="btn" href="{u["href"]}"{target}>{E(u["cta"])}</a><a class="btn ghost" href="{SITE["book"]}" target="_blank" rel="noopener">Stay for the party</a></div>
+    <div class="btns"><a class="btn" href="{u["href"]}"{target}>{E(u["cta"])}</a><a class="btn ghost" href="{book_link(u["start_iso"], 2 if u["slug"] == "tabi-tabi-po" else 1)}">Stay for the party</a></div>
   </div>
 </article>''')
     return '<div class="grid g2">' + "".join(out) + "</div>"
@@ -377,8 +412,7 @@ def upcoming_cards():
 def page_home():
     h = head("Z Hostel · Poblacion, Makati · Home of Z Street",
              "Z Hostel in Poblacion, Makati: big comfy dorms and private rooms, the Z Café, the world-renowned Roofdeck, and Z Street, Poblacion's biggest street party since 2017.", "/")
-    rooms = "".join(f'''<article class="card reveal"><div class="card-media">{img(i, n + " at Z Hostel", sizes="(max-width: 700px) 100vw, 33vw")}</div>
-<div class="card-body"><h3>{E(n)}</h3><p>{E(d[:120].rsplit(" ",1)[0])}…</p><div class="meta"><b>{E(p)}</b><span>{E(u)}</span></div></div></article>''' for n, i, p, u, d, _ in ROOMS[:3])
+    rooms = "".join(room_card(r) for r in [ROOMS[2], ROOMS[5], ROOMS[0]])
     body = f'''
 <section class="hero">
   <div class="hero-bg">{img("hero-street-halloween-2018", "Thousands of people in costume fill Don Pedro Street at Z Street Halloween", eager=True, sizes="100vw")}</div>
@@ -386,7 +420,7 @@ def page_home():
     <span class="eyebrow">Z Hostel · Poblacion, Makati</span>
     <h1>Good vibes only. <em>Home of Z Street.</em></h1>
     <p class="lede">A hostel with a higher standard of stay, a café with restaurant-quality food, a rooftop the whole city knows, and the street party that put Poblacion on the map.</p>
-    <div class="btns"><a class="btn lg" href="{SITE["book"]}" target="_blank" rel="noopener">Book now</a><a class="btn lg ghost" href="/z-street/">Z Street parties</a></div>
+    {booker_bar(cls="home")}
   </div>
 </section>
 <section class="wrap" aria-label="Z Street in numbers">{stats_bar()}</section>
@@ -404,7 +438,7 @@ def page_home():
     <div class="reveal">
       <span class="eyebrow">Z Street · Since 2017</span>
       <h2>Poblacion's biggest street party.</h2>
-      <p class="lede">Five times a year we close Don Pedro and Alfonso Streets and turn Poblacion into one giant block party, permitted, secured and endorsed by the City of Makati.</p>
+      <p class="lede">Four times a year we close Don Pedro and Alfonso Streets and turn Poblacion into one giant block party, permitted, secured and endorsed by the City of Makati.</p>
       <ul class="pill-list" style="margin:18px 0 22px">{"".join(f'<li>{E(s["name"])} · {E(s["when"])}</li>' for s in SERIES)}</ul>
       <div class="btns"><a class="btn" href="/z-street/">See the 2026 calendar</a><a class="btn ghost" href="/partner/">Partner with us</a></div>
     </div>
@@ -417,7 +451,7 @@ def page_home():
     <div class="section-head"><span class="eyebrow">Feel-good and comfy</span><h2>Rooms</h2>
     <p class="lede">Spacious rooms with customized big beds, each with its own electric socket and reading lamp. Air-conditioning, counters with a sink, and en-suite bathrooms. Modern, minimal, and regularly sanitized.</p></div>
     <div class="grid g3">{rooms}</div>
-    <div class="btns" style="margin-top:24px"><a class="btn" href="/stay/">All rooms & rates</a><a class="btn ghost" href="{SITE["book"]}" target="_blank" rel="noopener">Check availability</a></div>
+    <div class="btns" style="margin-top:24px"><a class="btn" href="/book/">Book a bed or room</a><a class="btn ghost" href="/stay/">All rooms</a></div>
   </div>
 </section>
 
@@ -443,7 +477,7 @@ def page_home():
 
 <section class="section tight"><div class="wrap"><div class="cta-band">
   <div><h2>Stay on the street.</h2><p>Z Hostel sits right on the party street. Party weekends sell out first.</p></div>
-  <div class="btns"><a class="btn lg" href="{SITE["book"]}" target="_blank" rel="noopener">Book now</a><a class="btn lg ghost" href="/contact/">Contact us</a></div>
+  <div class="btns"><a class="btn lg" href="/book/">Book now</a><a class="btn lg ghost" href="/contact/">Contact us</a></div>
 </div></div></section>
 '''
     ld = {"@context": "https://schema.org", "@type": "Hostel", "name": "Z Hostel", "url": SITE["url"],
@@ -453,24 +487,28 @@ def page_home():
     write("/", h + header("/") + body + f'<script type="application/ld+json">{json.dumps(ld)}</script>' + footer())
 
 def page_stay():
-    h = head("Rooms & Rates", "Mixed dorms (4, 6 and 8 beds), an all-female dorm and private rooms at Z Hostel, Poblacion, Makati. Breakfast included. Book direct.", "/stay/")
+    h = head("Rooms & Rates", "Mixed dorms (4, 6 and 8 beds), a women-only dorm and private rooms at Z Hostel, Poblacion, Makati. Book direct with live availability.", "/stay/")
     rooms = []
-    for k, (n, i, p, u, d, ticks) in enumerate(ROOMS):
+    for k, (n, i, sleeps, kind, d, ticks) in enumerate(ROOMS):
+        fr = ROOM_FROM.get(n)
+        slug = ROOM_SLUG.get(n, "")
+        price = f'<div class="price">from ₱{fr:,} <small>/ {"bed" if kind == "Dorm" else "room"} / night</small></div><p class="small muted" style="margin:0">Bed-only rate. Breakfast rates available when you book.</p>' if fr else ""
         rooms.append(f'''<article class="room reveal{" flip" if k % 2 else ""}">
-  <div class="room-media">{img(i, n + " at Z Hostel", sizes="(max-width: 860px) 100vw, 45vw")}</div>
-  <div class="room-body"><h3>{E(n)}</h3><p class="muted">{E(d)}</p>
+  <div class="room-media">{img(i, n + " at Z Hostel")}</div>
+  <div class="room-body"><span class="tag">{E(kind)} · {E(sleeps)}</span><h3>{E(n)}</h3><p class="muted">{E(d)}</p>
     <ul class="ticks">{"".join(f"<li>{E(t)}</li>" for t in ticks)}</ul>
-    <div class="price">{E(p)} <small>{E(u)}</small></div><p class="small muted" style="margin:0">Price may vary.</p>
-    <div class="btns"><a class="btn" href="{SITE["book"]}" target="_blank" rel="noopener">Book now</a></div></div>
+    {price}
+    <div class="btns"><a class="btn" href="/book/?room={slug}">Book this</a></div></div>
 </article>''')
     body = f'''
 <section class="hero short">
   <div class="hero-bg">{img("room-guests", "Guests hanging out in a Z Hostel dorm", eager=True, sizes="100vw")}</div>
   <div class="wrap hero-inner"><span class="eyebrow">Stay</span><h1>Big beds. Good vibes.</h1>
   <p class="lede">Our mixed dorms are probably the biggest and most comfortable you will ever stay in. Wide customized bunks, each with its own socket and reading lamp, a towel rack, and lockers big enough for your valuables (with a socket to charge that GoPro).</p>
-  <div class="btns"><a class="btn lg" href="{SITE["book"]}" target="_blank" rel="noopener">Check availability</a></div></div>
+  {booker_bar(cls="stay")}</div>
 </section>
-<section class="section"><div class="wrap stack" style="display:grid;gap:22px">{"".join(rooms)}</div></section>
+<section class="section"><div class="wrap stack" style="display:grid;gap:22px">{"".join(rooms)}
+<p class="muted small">{E(SOCIAL_FLOOR)}</p></div></section>
 <section class="section alt"><div class="wrap">
   <div class="section-head"><span class="eyebrow">Included</span><h2>Amenities & services</h2></div>
   <ul class="amenities">{"".join(f"<li>{E(a)}</li>" for a in AMENITIES)}</ul>
@@ -509,7 +547,7 @@ def page_eat():
 
 def page_zstreet():
     h = head("Z Street: Poblacion's Biggest Street Party",
-             "Z Street: Poblacion's biggest street party since 2017. 25 parties, 300,000+ people. Summer Kick Off, Rev Up, Repoblacion, Halloween and the Holiday street party on Don Pedro & Alfonso Streets, Makati.", "/z-street/")
+             "Z Street: Poblacion's biggest street party since 2017. Summer Kick Off, Rev Up, Repoblacion and Halloween on Don Pedro & Alfonso Streets, Makati, with a holiday street party in the works.", "/z-street/")
     cards = "".join(series_card(s) for s in SERIES)
     weekly = "".join(f'''<article class="card reveal"><div class="card-media">{img(i, n, sizes="(max-width: 700px) 100vw, 20vw")}</div><div class="card-body"><span class="tag">{E(w)}</span><h3>{E(n)}</h3><p>{E(d)}</p></div></article>''' for n, w, d, i in WEEKLY)
     tl = "".join(f'''<div class="tl {cls}"><div class="yr">{E(y)}</div><h4>{E(t)}</h4><p>{E(d)}</p>{f'<span class="tag{" hot" if cls=="next" else ""}">{E(n)}</span>' if n else ""}</div>''' for y, t, d, n, cls in HALLOWEEN)
@@ -520,14 +558,14 @@ def page_zstreet():
   <div class="wrap hero-inner">
     <span class="eyebrow">Z Street · Since 2017</span>
     <h1>Poblacion's biggest street party.</h1>
-    <p class="lede">25 parties. 300,000+ people. Five times a year we close Don Pedro and Alfonso Streets and turn Poblacion into one giant block party, permitted, secured and endorsed by the City of Makati.</p>
-    <div class="btns"><a class="btn lg" href="#calendar">See the 2026 calendar</a><a class="btn lg ghost" href="{SITE["book"]}" target="_blank" rel="noopener">Stay on the street</a><a class="btn lg ghost" href="/partner/">Partner with us</a></div>
+    <p class="lede">25 parties since 2017. Four times a year we close Don Pedro and Alfonso Streets and turn Poblacion into one giant block party, permitted, secured and endorsed by the City of Makati.</p>
+    <div class="btns"><a class="btn lg" href="#calendar">See the 2026 calendar</a><a class="btn lg ghost" href="/book/">Stay on the street</a><a class="btn lg ghost" href="/partner/">Partner with us</a></div>
   </div>
 </section>
 <section class="wrap" aria-label="Z Street in numbers">{stats_bar()}</section>
 
 <section class="section" id="calendar"><div class="wrap">
-  <div class="section-head"><span class="eyebrow">The year in Z Street</span><h2>Five parties. Every year.</h2>
+  <div class="section-head"><span class="eyebrow">The year in Z Street</span><h2>Four parties a year. One more on the way.</h2>
   <p class="lede">Z Hostel co-organizes every Z Street with PLUD (Poblacion Land & Urban Development Corp.). Each event is fully permitted by the City of Makati and Barangay Poblacion, and in 2023 the Makati Tourism Office formally endorsed the calendar.</p></div>
   <div class="grid g3">{cards}
     <article class="card reveal" style="justify-content:center"><div class="card-body" style="justify-content:center">
@@ -538,10 +576,10 @@ def page_zstreet():
 
 <section class="section alt"><div class="wrap">
   <div class="section-head"><span class="eyebrow">Halloween history</span><h2>The night keeps growing.</h2>
-  <p class="lede">From 3,649 people in 2017 to a record 25,000 in 2024. This is the story of Manila's biggest Halloween street party.</p></div>
+  <p class="lede">From the first takeover of Don Pedro in 2017 to the biggest Halloween street party in Manila. Year by year.</p></div>
   <div class="timeline" tabindex="0" aria-label="Halloween timeline, scroll sideways">{tl}</div>
   <p class="scroll-hint">Scroll sideways for every year →</p>
-  <div style="margin-top:28px">{growth_block()}</div>
+  
 </div></section>
 
 <section class="section"><div class="wrap">
@@ -576,7 +614,7 @@ def page_zstreet():
 </div></section>
 
 <section class="section tight"><div class="wrap"><div class="cta-band">
-  <div><h2>Put your brand on the street.</h2><p>Up to 25,000 people a night. Request the sponsorship deck.</p></div>
+  <div><h2>Put your brand on the street.</h2><p>Poblacion's biggest street crowds. Request the sponsorship deck.</p></div>
   <div class="btns"><a class="btn lg" href="/partner/">Partner with us</a></div>
 </div></div></section>'''
     ld = event_ld("THE ODY-Z: Z Street 2026", "2026-11-20T18:00:00+08:00",
@@ -603,7 +641,7 @@ def page_series(s):
     else:
         themes = f'<p class="muted">{confirm("past editions and themes for the Holiday street party", "More soon.")}</p>'
     # chart
-    if s["attendance"]:
+    if False:
         vals = [(y, s["attendance"].get(y)) for y in YEARS]
         chart = f'''<div class="chart-card reveal"><h3>Attendance by year</h3><p class="sub">Official Z Hostel figures. Record: {s["record"][0]} ({s["record"][1]}).</p>{bar_chart(vals, name + ": attendance by year", w=760, h=280)}
 <details class="table-view"><summary>Show as a table</summary>{data_table([[y, cell(s["attendance"].get(y))] for y in YEARS], ["Year", "Attendance"])}</details></div>'''
@@ -634,21 +672,21 @@ def page_series(s):
   <h1>{E(name)}</h1>{was}
   <p class="lede"><strong>{E(s["short"])}</strong> {E(s["copy"])}</p>
   <p class="small"><b>Next:</b> {nxt_label}</p>{nxt}
-  <div class="btns"><a class="btn lg" href="#list">Get on the list</a><a class="btn lg ghost" href="{SITE["book"]}" target="_blank" rel="noopener">Stay on the street</a></div></div>
+  <div class="btns"><a class="btn lg" href="#list">Get on the list</a><a class="btn lg ghost" href="/book/">Stay on the street</a></div></div>
 </section>
 {odyz}
-<section class="section{"" if odyz else ""} alt"><div class="wrap">
+{"" if s.get("future") else f'''<section class="section alt"><div class="wrap">
   <div class="section-head"><span class="eyebrow">Past themes</span><h2>Year by year</h2></div>
   {themes}
   <div style="margin-top:28px">{chart}</div>
-</div></section>
+</div></section>'''}
 <section class="section"><div class="wrap">
-  <div class="section-head"><span class="eyebrow">Gallery</span><h2>Scenes from the street</h2></div>
+  <div class="section-head"><span class="eyebrow">Gallery</span><h2>{"Year-end at Z so far" if s.get("future") else "Scenes from the street"}</h2></div>
   <div class="mosaic">{photos}{phs}</div>
 </div></section>
 <section class="section alt"><div class="wrap grid g2">
-  <div class="cta-band" style="grid-template-columns:1fr"><div><h2>Stay on the street.</h2><p>Z Hostel is on Don Pedro, right where the party happens. Party weekends sell out.</p></div><div class="btns"><a class="btn lg" href="{SITE["book"]}" target="_blank" rel="noopener">Book for that weekend</a></div></div>
-  <div class="tile" style="display:flex;flex-direction:column;justify-content:center"><span class="eyebrow">Sponsors</span><h2 style="font-size:clamp(28px,3.4vw,44px)">Put your brand on the street.</h2><p>Entrance arches, stages, pop-up bars and brand ambassadors in front of up to 25,000 people a night.</p><div class="btns" style="margin-top:16px"><a class="btn" href="/partner/?event={s["slug"]}">Request the sponsorship deck</a></div></div>
+  <div class="cta-band" style="grid-template-columns:1fr"><div><h2>Stay on the street.</h2><p>Z Hostel is on Don Pedro, right where the party happens. Party weekends sell out.</p></div><div class="btns"><a class="btn lg" href="{book_link(s["next_iso"]) if s["next_iso"] else "/book/"}">Book for that weekend</a></div></div>
+  <div class="tile" style="display:flex;flex-direction:column;justify-content:center"><span class="eyebrow">Sponsors</span><h2 style="font-size:clamp(28px,3.4vw,44px)">Put your brand on the street.</h2><p>Entrance arches, stages, pop-up bars and brand ambassadors in front of Poblacion's biggest street crowds.</p><div class="btns" style="margin-top:16px"><a class="btn" href="/partner/?event={s["slug"]}">Request the sponsorship deck</a></div></div>
 </div></section>
 <section class="section"><div class="wrap split" style="align-items:start">
   <div><div class="section-head"><span class="eyebrow">Party guide</span><h2>FAQ</h2></div>{faq_items(s)}</div>
@@ -668,7 +706,7 @@ def page_events():
   {upcoming_cards()}
 </div></section>
 <section class="section alt"><div class="wrap split">
-  <div><span class="eyebrow">Z Street calendar</span><h2>Five street parties a year.</h2><p class="lede">Every one of them on Don Pedro & Alfonso Streets, with Z Hostel as home base.</p>
+  <div><span class="eyebrow">Z Street calendar</span><h2>Four street parties a year.</h2><p class="lede">Every one of them on Don Pedro & Alfonso Streets, with Z Hostel as home base. A holiday street party is in the works.</p>
   <div class="btns" style="margin-top:20px"><a class="btn" href="/z-street/">The full Z Street story</a><a class="btn ghost" href="/z-street/#list">Get on the list</a></div></div>
   <ul class="press" style="list-style:none;padding:0;margin:0">{cal}</ul>
 </div></section>
@@ -684,7 +722,7 @@ def page_events():
     write("/events/", h + header("/events/") + body + lds + footer())
 
 def page_partner():
-    h = head("Partner With Us · Z Street Sponsorship", "Put your brand on the street with up to 25,000 people a night. Z Street sponsorship tiers and the sponsorship deck.", "/partner/")
+    h = head("Partner With Us · Z Street Sponsorship", "Put your brand on the street at Poblacion's biggest street party. Z Street sponsorship tiers and the sponsorship deck.", "/partner/")
     tiers = ["Platinum", "Gold", "Silver", "Bronze", "Standard"]
     tier_cards = "".join(f'<div class="tile reveal"><h3>{t}</h3><p class="muted">Package details in the deck.</p></div>' for t in tiers)
     pre = ""
@@ -701,16 +739,16 @@ def page_partner():
 <section class="hero short">
   <div class="hero-bg">{img("summer-kick-off-2019-jameson", "A Jameson-branded stage at Z Street", eager=True, sizes="100vw")}</div>
   <div class="wrap hero-inner"><span class="eyebrow">Partner with us</span><h1>Put your brand on the street.</h1>
-  <p class="lede">Up to 25,000 people a night, five times a year, on the street that put Poblacion on the map.</p>
+  <p class="lede">Poblacion's biggest street crowds, four times a year, on the street that put Poblacion on the map.</p>
   <div class="btns"><a class="btn lg" href="#deck">Request the sponsorship deck</a></div></div>
 </section>
-<section class="wrap" aria-label="Z Street in numbers">{stats_bar(STATS[:4])}</section>
+<section class="wrap" aria-label="Z Street in numbers">{stats_bar()}</section>
 <section class="section"><div class="wrap">
   <div class="section-head"><span class="eyebrow">What you get</span><h2>Benefits</h2></div>
   <div class="grid g4">{ben}</div>
   <div class="split" style="margin-top:48px">
     <div><span class="eyebrow">The audience</span><h2>Young, local, and out every night.</h2>
-    <p class="lede">Mostly Metro Manila, ages 25–44, plus international travelers staying at the hostel.</p></div>
+    <p class="lede">Young Metro Manila locals out for the night, plus international travelers staying at the hostel.</p></div>
     <div>{img("rev-up-2018-cuervo", "A Jose Cuervo-branded bar packed with guests at Z Street")}</div>
   </div>
 </div></section>
@@ -768,7 +806,7 @@ def page_about():
   <p class="quote" style="font-size:clamp(26px,3.4vw,42px)">Z Street is a place of belonging for everyone. It keeps Poblacion's streets alive and safe so people can be themselves.</p></div>
 </div></section>
 <section class="section"><div class="wrap grid g3">
-  <div class="tile reveal"><span class="eyebrow">2017</span><h3>Z Street begins</h3><p>Z Hostel's founders closed Don Pedro and Alfonso Streets for the first Z Street block party. Since then: 25 parties and about 300,000 people through the gates.</p></div>
+  <div class="tile reveal"><span class="eyebrow">2017</span><h3>Z Street begins</h3><p>Z Hostel's founders closed Don Pedro and Alfonso Streets for the first Z Street block party. Since then: 25 parties and counting.</p></div>
   <div class="tile reveal"><span class="eyebrow">Partners</span><h3>Co-organized with PLUD</h3><p>Every Z Street is co-organized with Poblacion Land & Urban Development Corp. and fully permitted by the City of Makati and Barangay Poblacion. In 2023 the Makati Tourism Office formally endorsed the event calendar.</p></div>
   <div class="tile reveal"><span class="eyebrow">A first</span><h3>RFID payments</h3><p>Z introduced the first RFID payment system in a hostel in the Philippines: cashless tabs at the bar, faster service, no waiting for change. It later powered the cashless wristbands at Zombie Street 2019.</p></div>
 </div></section>
@@ -829,7 +867,7 @@ def page_contact():
     <label class="check"><input type="checkbox" name="consent" required><span>I agree to the <a href="/privacy/">privacy notice</a>. *</span></label>
     <div class="btns"><button class="btn lg" type="submit">Send</button></div>
     <p class="form-msg" role="alert"></p>
-    <p class="small muted">To book a bed instantly, use <a href="{SITE["book"]}" target="_blank" rel="noopener">online booking</a>.</p>
+    <p class="small muted">To book a bed instantly, use <a href="/book/">online booking</a>.</p>
   </form>
 </div></section>'''
     write("/contact/", h + header("/contact/") + body + footer())
@@ -854,6 +892,84 @@ def page_privacy():
 </div></section>'''
     write("/privacy/", h + header("/privacy/", ribbon=False) + body + footer())
 
+def page_book():
+    h = head("Book a Bed or Room", "Book Z Hostel direct: dorm beds and private rooms in Poblacion, Makati, right on the Z Street party street. Live availability, instant confirmation.", "/book/", og="/assets/img/room-guests.webp")
+    countries = ["Philippines","Australia","Canada","China","France","Germany","Hong Kong","India","Indonesia","Israel","Italy","Japan","Malaysia","Netherlands","New Zealand","Singapore","South Korea","Spain","Sweden","Switzerland","Taiwan","Thailand","United Arab Emirates","United Kingdom","United States","Vietnam","Other"]
+    copts = "".join(f"<option>{E(c)}</option>" for c in countries)
+    body = f'''
+<section class="page-head" style="padding-bottom:24px"><div class="wrap"><span class="eyebrow">Book direct · Z Hostel Poblacion</span><h1>Book your stay</h1>
+<p class="lede">Pick your dates, your bed or room, and any extras. Your booking is confirmed instantly. {E(SITE_PAYMENT)}</p></div></section>
+<section class="section tight"><div class="wrap book-wrap" id="book-engine">
+  <div>
+    <div class="book-step" id="st-dates">
+      <div class="step-h"><span class="n">1</span><div><h2>Your dates</h2><p>{E(CHECKIN_TIMES)}</p></div></div>
+      <div class="date-row">
+        <div class="field"><label for="b-in">Check-in</label><input id="b-in" type="date" required></div>
+        <div class="field"><label for="b-out">Check-out</label><input id="b-out" type="date" required></div>
+      </div>
+    </div>
+    <div class="book-step" id="st-rooms">
+      <div class="step-h"><span class="n">2</span><div><h2>Choose your beds or rooms</h2><p>Dorms are priced per bed, private rooms per room (sleeps 2). Prices shown are for your whole stay.</p></div></div>
+      <div class="room-picks" id="b-rooms"><p class="muted">Pick your dates to see what's free.</p></div>
+      <p class="small muted" style="margin-top:12px">{E(SOCIAL_FLOOR)}</p>
+    </div>
+    <div class="book-step" id="st-addons">
+      <div class="step-h"><span class="n">3</span><div><h2>Add-ons</h2><p>Optional extras. Anything marked “at the desk” is priced and paid when you arrive.</p></div></div>
+      <div class="addon-list" id="b-addons"></div>
+    </div>
+    <div class="book-step" id="st-guest">
+      <div class="step-h"><span class="n">4</span><div><h2>Your details</h2><p>For the person checking in. We'll show your booking code on the next screen.</p></div></div>
+      <form id="b-form" class="form" novalidate>
+        <div class="row2">
+          <div class="field"><label for="g-name">Full name *</label><input id="g-name" name="name" type="text" autocomplete="name" required maxlength="120"></div>
+          <div class="field"><label for="g-email">Email *</label><input id="g-email" name="email" type="email" autocomplete="email" required maxlength="200"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="g-phone">Mobile number *</label><input id="g-phone" name="phone" type="tel" autocomplete="tel" required maxlength="40" placeholder="+63 9xx xxx xxxx"></div>
+          <div class="field"><label for="g-country">Country</label><select id="g-country" name="country"><option value="">Select…</option>{copts}</select></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="g-arrival">Estimated arrival time</label><select id="g-arrival" name="arrival"><option value="">Not sure yet</option><option>Before 2 PM (early)</option><option>2–6 PM</option><option>6–10 PM</option><option>After 10 PM</option></select></div>
+          <div class="field"><label for="g-ref">Promo or referral code</label><input id="g-ref" name="ref" type="text" maxlength="40"></div>
+        </div>
+        <div class="field"><label for="g-notes">Anything we should know?</label><textarea id="g-notes" name="notes" maxlength="2000" placeholder="Flight number for pickup, group names, special requests…"></textarea></div>
+        <input class="hp" type="text" name="website_hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <label class="check"><input type="checkbox" name="consent" required><span>I agree to the booking terms below and the <a href="/privacy/">privacy notice</a>. *</span></label>
+        <label class="check"><input type="checkbox" name="marketing"><span>Email me Z Street dates and Z Hostel offers.</span></label>
+        <details class="table-view"><summary>Booking terms & cancellation policy</summary><div class="small muted" id="b-terms" style="margin-top:8px"></div></details>
+      </form>
+    </div>
+  </div>
+  <aside class="book-aside"><div class="summary-card">
+    <h3>Your stay</h3>
+    <div id="b-summary" aria-live="polite"><p class="muted">Pick your dates to start.</p></div>
+    <p class="form-msg" id="b-msg" role="alert"></p>
+    <button class="btn lg" id="b-go" type="button" disabled>Choose your dates</button>
+    <ul class="trust"><li>Instant confirmation</li><li>Live availability, no double bookings</li><li>Right on Don Pedro St., Poblacion</li></ul>
+    <p class="small muted" style="margin-top:12px">Already booked? <a href="/book/manage/">Find your booking</a></p>
+  </div></aside>
+</div>
+<div class="wrap" id="b-done" hidden></div>
+</section>
+<div class="mbook" id="b-mobile" style="display:none"><div><b>Choose dates</b><span id="b-mtotal">Z Hostel Poblacion</span></div><button class="btn" type="button" disabled>Book</button></div>
+<script>if(matchMedia("(max-width: 760px)").matches){{var m=document.getElementById("b-mobile");m.style.display="";document.body.classList.add("has-mbook");}}</script>'''
+    write("/book/", h + header("/book/") + body + footer(mbook=False))
+
+def page_manage():
+    h = head("Find Your Booking", "Look up your Z Hostel booking with your booking code and email.", "/book/manage/")
+    body = '''
+<section class="page-head"><div class="wrap" style="max-width:720px"><span class="eyebrow">Your booking</span><h1>Find your booking</h1>
+<p class="lede">Enter the booking code (like Z-1024) and the email you booked with.</p>
+<form class="form form-card" id="m-form" style="margin-top:22px" novalidate>
+  <div class="row2"><div class="field"><label for="m-code">Booking code</label><input id="m-code" type="text" required placeholder="Z-1024" autocapitalize="characters"></div>
+  <div class="field"><label for="m-email">Email</label><input id="m-email" type="email" required></div></div>
+  <div class="btns"><button class="btn" type="submit">Find booking</button></div><p class="form-msg" role="alert"></p>
+</form>
+<div id="m-out" style="margin-top:22px"></div>
+<p class="small muted" style="margin-top:22px">Need to change or cancel? Contact the front desk: <a href="tel:+639178898531">(63) 917 889 8531</a> or <a href="/contact/?type=room">send us a message</a> with your booking code.</p>
+</div></section>'''
+    write("/book/manage/", h + header("/book/") + body + footer(mbook=False))
+
 def page_404():
     h = head("Page not found", "This page doesn't exist.", "/404.html")
     body = f'''<section class="page-head" style="min-height:60vh"><div class="wrap"><span class="eyebrow">404</span><h1>Wrong street.</h1>
@@ -871,6 +987,6 @@ def sitemap():
 if __name__ == "__main__":
     page_home(); page_stay(); page_eat(); page_zstreet()
     for s in SERIES: page_series(s)
-    page_events(); page_partner(); page_about(); page_gallery(); page_contact(); page_privacy(); page_404()
+    page_events(); page_book(); page_manage(); page_partner(); page_about(); page_gallery(); page_contact(); page_privacy(); page_404()
     sitemap()
     print("built", len(PAGES), "pages")

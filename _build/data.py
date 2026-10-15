@@ -26,12 +26,10 @@ SITE = {
 }
 
 STATS = [
-    ("25", "Street parties thrown since 2017"),
-    ("300,000+", "Total attendance since 2017"),
-    ("25,000", "Biggest single night (Halloween 2024)"),
-    ("5", "Recurring street parties a year"),
-    ("55,000+", "Guests hosted at the hostel"),
-    ("47,000+", "Facebook community"),
+    ("Since 2017", "Throwing Z Street on the street we live on"),
+    ("25", "Z Street parties and counting"),
+    ("City-permitted", "Cleared with Makati City Hall and Barangay Poblacion"),
+    ("Endorsed", "By the Makati Tourism Office"),
 ]
 
 YEARS = ["2017", "2018", "2019", "2020–21", "2022", "2023", "2024", "2025", "2026"]
@@ -124,34 +122,35 @@ SERIES = [
         "slug": "holiday",
         "name": "Holiday Bazaar & Christmas Street Party",
         "formerly": None,
-        "when": "December",
-        "short": "A holiday market plus a Christmas street party to close the year.",
-        "copy": "Shop local makers at the Holiday Bazaar, then close out the year with a Christmas street party on Don Pedro.",
+        "when": "December · in the works",
+        "short": "Something new for December.",
+        "copy": "We're planning a holiday market and a Christmas street party to close out the year on Z Street. Nothing's set yet: join the list and you'll be first to hear when it's on.",
         "last_2026": None,
-        "next_iso": "2026-12-11T16:00:00+08:00",
-        "next_label": "Bazaar: December 11–20, 2026",
-        "confirm_next": "Street party date",
+        "next_iso": None,
+        "next_label": "Coming soon · dates to be announced",
+        "confirm_next": None,
         "record": None,
         "attendance": {},
         "img": "nye-2019-crowd",
         "photos": ["nye-2019-crowd", "nye-2019-party", "nye-2018-roof"],
         "photo_caption": "Year-end at Z (New Year's Eve 2018–2019)",
-        "placeholders": ["holiday-2026-bazaar.jpg", "holiday-2026-street.jpg"],
+        "placeholders": [],
         "themes": [],
+        "future": True,
         "month_num": 12,
     },
 ]
 
 HALLOWEEN = [
-    ("2017", "Z Street Halloween begins", "3,649 people. The first Halloween takeover of Don Pedro.", "3,649", ""),
-    ("2018", "Attendance quadruples", "15,420 people, four times the first year.", "15,420", ""),
-    ("2019", "Zombie Street at Poblacion", "24,961 people. Venues along Don Pedro included Z Hostel Roofdeck, The Apartment, The Ruins and The Green Door. A cashless RFID wristband system ran across the participating bars. Covered by Primer and The Scoop.", "24,961", ""),
+    ("2017", "Z Street Halloween begins", "The first Halloween takeover of Don Pedro.", "", ""),
+    ("2018", "The word gets out", "The crowd grows fast, and Halloween becomes the night Poblacion plans its year around.", "", ""),
+    ("2019", "Zombie Street at Poblacion", "Venues along Don Pedro included Z Hostel Roofdeck, The Apartment, The Ruins and The Green Door. A cashless RFID wristband system ran across the participating bars. Covered by Primer and The Scoop.", "", ""),
     ("2020–21", "Paused for the pandemic", "Z kept the music going online with the Z Hostel Lockdown Sessions: live DJ and acoustic sets streamed from the Roofdeck.", "", "paused"),
-    ("2022", "Ready Poblacion One", "The comeback: a video-game-themed party powered by Budweiser, with two stages, twelve DJs and 14,000+ people. Covered by Manila Bulletin, VillagePipol and MNL Concert Scene.", "14,000+", ""),
-    ("2023", "Haunted Hallow Bash", "A Day-of-the-Dead theme with sugar-skull streets. 15,000+ people. No major medical incidents.", "15,000+", ""),
-    ("2024", "Red Nights Halloween / Halloween Invasion", "A record 25,000 people. Traveloka listed it as one of the biggest Halloween parties in Makati.", "25,000", ""),
-    ("2025", "Halloween Shadow Realm", "A Poblacion Street Party with a gothic red-curtain gate across Don Pedro, Alfonso and Fermina Streets. 22,000 people. Billed by When In Manila as Manila's biggest Halloween street party.", "22,000", ""),
-    ("2026", "THE ODY-Z", "A Poblacion homecoming street party, moved to Friday, November 20. Expected 25,000.", "25,000 expected", "next"),
+    ("2022", "Ready Poblacion One", "The comeback: a video-game-themed party powered by Budweiser, with two stages and twelve DJs. Covered by Manila Bulletin, VillagePipol and MNL Concert Scene.", "", ""),
+    ("2023", "Haunted Hallow Bash", "A Day-of-the-Dead theme with sugar-skull streets, and no major medical incidents.", "", ""),
+    ("2024", "Red Nights Halloween / Halloween Invasion", "Our biggest crowd yet. Traveloka listed it as one of the biggest Halloween parties in Makati.", "", ""),
+    ("2025", "Halloween Shadow Realm", "A Poblacion street party with a gothic red-curtain gate across Don Pedro, Alfonso and Fermina Streets. Billed by When In Manila as Manila's biggest Halloween street party.", "", ""),
+    ("2026", "THE ODY-Z", "A Poblacion homecoming street party, moved to Friday, November 20.", "Nov 20", "next"),
 ]
 
 PRESS = [
@@ -178,13 +177,28 @@ WEEKLY = [
 ]
 
 ROOMS = [
-    ("4-Bed Mixed Dorm", "room-4bed", "PHP 1,350", "/ bed with breakfast", "Stylish 4-bed dorms. Perfect for those who want a good mix of privacy and sociability.", ["Room size: 15 sqm", "Customized wide bunk with its own socket and reading lamp", "Big lockers with their own socket"]),
-    ("6-Bed Mixed Dorm", "room-6bed", "PHP 1,300", "/ bed with breakfast", "Just the right number of people to turn your stay into a fun experience.", ["Room size: 30 sqm", "Built-in sink in the room for a quick fix-up", "Towel rack and hooks for every bed"]),
-    ("8-Bed Mixed Dorm", "room-8bed", "PHP 1,250", "/ bed with breakfast", "Up for a party and designed for interaction without compromising comfort. Near the elevators for easy access to the Roofdeck or the lobby.", ["Room size: 30 sqm", "Built-in sink in the room", "Steps from the elevator to the Roofdeck"]),
-    ("All-Female Dorm", "room-female", "PHP 1,300", "/ bed with breakfast", "Our “Stiletto” room: every woman traveller's ideal home on the road, with a dresser to lounge around, a vanity mirror to get ready for a night out, and bigger-than-usual lockers. Perfect for a group of friends travelling together.", ["Room size: 30 sqm", "Hairdryer, flat iron and board on request", "Free breakfast included"]),
-    ("Private Room", "room-private", "PHP 3,000", "/ room", "On the highest floors, a few steps from the Roofdeck: queen-size bed with two pillows and duvet, en-suite bathroom and two bathrobes. Fully air-conditioned. Heads-up: the music might just get you in the groove, so this isn't the room for an early night.", ["Room size: 15 sqm", "Free breakfast for 2", "Hairdryer, flat iron and board on request"]),
-    ("Private Bunk Bed Room", "room-private-bunk", "Rates on booking", "", "Privacy and personal space in one: a whole room for you and your buddy, with your own bunks for some down time from each other.", ["Free breakfast included", "Hairdryer, flat iron and board on request"]),
+    # (name, image, sleeps, kind, description, ticks)  - names match the Cloudbeds room types
+    ("Private Room", "room-private", "Sleeps 2", "Private",
+     "On the highest floors, a few steps from the Roofdeck: queen-size bed with two pillows and duvet, en-suite bathroom and two bathrobes. Fully air-conditioned. Heads-up: the music might just get you in the groove, so this isn't the room for an early night.",
+     ["Queen bed, en-suite bathroom", "Bathrobes, towels, air-conditioning", "Hairdryer, flat iron and board on request"]),
+    ("Private Bunk Bed Room", "room-private-bunk", "Sleeps 2", "Private",
+     "Privacy and personal space in one: a whole room for you and your buddy, with one bunk bed so you still get your own down time. Each bed has a quality mattress, a reading light and a power plug, plus an en-suite bathroom.",
+     ["1 bunk bed, en-suite bathroom", "Also on the Social Fun Floor, right below the Roofdeck", "Towels and bathrobes"]),
+    ("4-Bed Mixed Dorm", "room-4bed", "4 beds", "Dorm",
+     "Stylish 4-bed dorms. Perfect for those who want a good mix of privacy and sociability.",
+     ["Wide customized bunks with their own socket and reading lamp", "Big lockers with their own socket", "Also on the Social Fun Floor"]),
+    ("6-Bed Mixed Dorm", "room-6bed", "6 beds", "Dorm",
+     "Just the right number of people to turn your stay into a fun experience.",
+     ["Built-in sink in the room for a quick fix-up", "Towel rack and hooks for every bed", "Also on the Social Fun Floor"]),
+    ("8-Bed Mixed Dorm", "room-8bed", "8 beds", "Dorm",
+     "Up for a party and designed for interaction without compromising comfort. Near the elevators for easy access to the Roofdeck or the lobby.",
+     ["Built-in sink in the room", "Steps from the elevator to the Roofdeck", "Big lockers with their own socket"]),
+    ("6-Bed Female Dorm", "room-female", "6 beds", "Dorm",
+     "Our “Stiletto” room: every woman traveller's ideal home on the road, with a dresser to lounge around, a vanity mirror to get ready for a night out, and bigger-than-usual lockers. Perfect for a group of friends travelling together.",
+     ["Women only", "Dresser and vanity mirror", "Hairdryer, flat iron and board on request"]),
 ]
+
+SOCIAL_FLOOR = "Social Fun Floor rooms sit right below the Roofdeck bar, where something's on almost every night. The bar runs until 3 a.m., so you'll hear the music and the chatter. All good if you're here for the fun."
 
 AMENITIES = ["Free Wi-Fi", "Sanitation kit & toiletries", "Clothing", "Lockers", "24-hour front desk", "Luggage storage", "Hot & cold shower", "Working space", "Temperature check", "24-hour security & CCTV", "PC at the lobby", "Concierge"]
 
@@ -219,3 +233,19 @@ UPCOMING = [
         "external": True,
     }
 ]
+
+
+# Indicative "from" rates per night, read off the Cloudbeds booking engine on Oct 16, 2026.
+# Final rates always come from Cloudbeds at checkout. Update or set to None to hide.
+ROOM_FROM = {
+    "Private Room": 2400, "Private Bunk Bed Room": 2100, "4-Bed Mixed Dorm": 810,
+    "6-Bed Mixed Dorm": 780, "8-Bed Mixed Dorm": 750, "6-Bed Female Dorm": 780,
+}
+CHECKIN_TIMES = "Check-in from 2:00 PM · check-out by 11:00 AM"
+SHOW_CHECKIN_TIMES = True
+
+# room card on the marketing pages -> room type slug in the booking database
+ROOM_SLUG = {"Private Room": "private", "Private Bunk Bed Room": "private-bunk", "4-Bed Mixed Dorm": "dorm-4",
+             "6-Bed Mixed Dorm": "dorm-6", "8-Bed Mixed Dorm": "dorm-8", "6-Bed Female Dorm": "dorm-6f"}
+
+SITE_PAYMENT = "Pay at check-in: cash, card or GCash."
