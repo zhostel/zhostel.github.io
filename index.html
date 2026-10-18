@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=DM+Sans:opsz,wght@9..40,400..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/z.css?v=20261015">
+<link rel="stylesheet" href="/assets/css/z.css?v=20261017a">
 
 </head>
 <body>
@@ -40,17 +40,16 @@
   <div class="wrap hero-inner">
     <span class="eyebrow">Z Hostel · Poblacion, Makati</span>
     <h1>Good vibes only. <em>Home of Z Street.</em></h1>
-    <p class="lede">A hostel with a higher standard of stay, a café with restaurant-quality food, a rooftop the whole city knows, and the street party that put Poblacion on the map.</p>
+    <p class="lede">On Don Pedro Street since 2015: a hostel with a higher standard of stay, a café with restaurant-quality food, a rooftop the whole city knows, and, since 2017, the street party that put Poblacion on the map.</p>
     <form class="booker home" aria-label="Check availability">
-  <div class="field"><label for="bk-in-home">Check-in</label><input id="bk-in-home" name="checkin" type="date" required></div>
-  <div class="field"><label for="bk-out-home">Check-out</label><input id="bk-out-home" name="checkout" type="date" required></div>
-  <div class="field g"><label for="bk-g-home">Guests</label><select id="bk-g-home" name="guests"><option value="1">1 guest</option><option value="2" selected>2 guests</option><option value="3">3 guests</option><option value="4">4 guests</option><option value="5">5 guests</option><option value="6">6 guests</option><option value="7">7 guests</option><option value="8">8 guests</option></select></div>
-  <button class="btn" type="submit">Check availability</button>
-  <p class="note">Live availability and secure checkout. Best for 1–8 guests. Group of 9+? <a href="/contact/?type=group">Ask for group rates</a>.</p>
+  <div class="zdr"><input type="hidden" name="checkin"><input type="hidden" name="checkout"></div>
+  <div class="zguests" data-max="8"><input type="hidden" name="guests" value="2"></div>
+  <button class="btn" type="submit">Search</button>
+  <p class="note">Instant booking. Pay at check-in, or pay ahead by transfer for 5% off. Group of 9+? <a href="/contact/?type=group">Ask for group rates</a>.</p>
 </form>
   </div>
 </section>
-<section class="wrap" aria-label="Z Street in numbers"><div class="stats"><div class="stat"><b>Since 2017</b><span>Throwing Z Street on the street we live on</span></div><div class="stat"><b>25</b><span>Z Street parties and counting</span></div><div class="stat"><b>City-permitted</b><span>Cleared with Makati City Hall and Barangay Poblacion</span></div><div class="stat"><b>Endorsed</b><span>By the Makati Tourism Office</span></div></div></section>
+<section class="wrap" aria-label="Z Street in numbers"><div class="stats"><div class="stat"><b>2015</b><span>Z Hostel opens on Don Pedro St., Poblacion</span></div><div class="stat"><b>2017</b><span>The first Z Street party</span></div><div class="stat"><b>25</b><span>Z Street parties and counting</span></div><div class="stat"><b>City-permitted</b><span>Cleared with Makati City Hall and Barangay Poblacion</span></div></div></section>
 
 <section class="section">
   <div class="wrap">
@@ -182,14 +181,15 @@
     </div>
     <div class="foot-bottom">
       <span>© 2026 Flashpacker Inc. · Z Hostel, Poblacion, Makati</span>
-      <span><a href="/privacy/">Privacy</a> · <a href="/admin/">Staff</a></span>
+      <span><a href="/privacy/">Privacy</a> · <a href="/staff/">Staff</a></span>
     </div>
   </div>
 </footer>
-<script src="/assets/js/config.js?v=20261015"></script>
-<script src="/assets/js/z.js?v=20261015" defer></script>
+<script src="/assets/js/config.js?v=20261017a"></script>
+<script src="/assets/js/z.js?v=20261017a" defer></script>
 <script>window.Z_EVENTS=[{"name": "Tabi Tabi Po at Salakot", "start": "2026-10-30", "end": "2026-10-31", "when": "Oct 30\u201331", "note": "Salakot opening night, steps from your bed. RSVP free at zhostel.com/events/tabi-tabi-po."}, {"name": "THE ODY-Z street party", "start": "2026-11-20", "end": "2026-11-20", "when": "Nov 20", "note": "Z Hostel is home base for the whole block party. Party weekends sell out first."}];</script>
-<script src="/assets/js/book.js?v=20261015" defer></script>
+<script src="/assets/js/zdates.js?v=20261017a" defer></script>
+<script src="/assets/js/book.js?v=20261017a" defer></script>
 
 </body>
 </html>

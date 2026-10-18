@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Reservations · Z Hostel Staff</title>
+<link rel="icon" type="image/png" href="/assets/img/z-logo-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=DM+Sans:opsz,wght@9..40,400..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/z.css?v=20261017a">
+<link rel="stylesheet" href="/assets/css/staff.css?v=20261017a">
+</head>
+<body class="staff">
+<header class="sd-top">
+  <a class="brand" href="/"><img src="/assets/img/z-logo-180.png" alt="" width="34" height="34"><span>Z Reservations</span></a>
+  <span class="sd-sub">Bookings · Payments · Calendar</span>
+  <nav class="sd-links" id="sd-links" hidden>
+    <a href="/admin/">Rates, marketing &amp; staff list</a>
+    <span class="who" id="who"></span>
+    <button class="btn sm ghost" id="logout" type="button">Sign out</button>
+  </nav>
+</header>
+
+<!-- ============ sign in ============ -->
+<section id="login" class="sd-login form-card" hidden>
+  <span class="eyebrow">Staff only</span>
+  <h1>Staff sign in</h1>
+  <p class="muted">Use your staff login (or the shared front-desk login). Ask the office if you don't have one.</p>
+  <form class="form" id="login-form" novalidate>
+    <div class="field"><label for="l-email">Email</label><input id="l-email" type="email" required autocomplete="username"></div>
+    <div class="field"><label for="l-pass">Password</label><input id="l-pass" type="password" autocomplete="current-password"></div>
+    <div class="btns"><button class="btn lg" type="submit">Sign in</button><button class="btn ghost" type="button" id="l-link">Email me a sign-in link instead</button></div>
+    <p class="form-msg" role="alert"></p>
+  </form>
+</section>
+
+<!-- ============ desk ============ -->
+<main id="app" class="sd-app" hidden>
+  <div class="sd-alerts" id="sd-alerts"></div>
+
+  <div class="sd-bar">
+    <div class="pills" id="pills" role="tablist" aria-label="Quick filters"></div>
+    <div class="sd-actions">
+      <button class="btn" type="button" id="b-new">+ New booking</button>
+      <button class="btn ghost sm" type="button" data-open="cal">Calendar</button>
+      <button class="btn ghost sm" type="button" data-open="log">Activity log</button>
+      <button class="btn ghost sm" type="button" data-open="team">Team activity</button>
+      <button class="btn ghost sm" type="button" data-open="settings">Payment settings</button>
+      <button class="btn ghost sm" type="button" id="b-csv">Export CSV</button>
+    </div>
+  </div>
+
+  <div class="sd-filters" id="filters">
+    <label>Dates <select id="f-field"><option value="stay">Staying</option><option value="checkin">Check-in</option><option value="created">Date booked</option></select></label>
+    <label>From <input type="date" id="f-from"></label>
+    <label>To <input type="date" id="f-to"></label>
+    <label>Status <select id="f-status"><option value="">All statuses</option></select></label>
+    <label>Payment <select id="f-pay"><option value="">Any payment</option><option value="transfer">Pay ahead (transfer)</option><option value="desk">Pay at check-in</option><option value="unpaid">Unpaid</option><option value="partial">Part-paid</option><option value="paid">Paid</option></select></label>
+    <label>Source <select id="f-source"><option value="">All sources</option></select></label>
+    <label>Booked by <select id="f-by"><option value="">Anyone</option></select></label>
+    <label class="chk"><input type="checkbox" id="f-cb" checked> Cloudbeds / OTA</label>
+    <label class="grow">Search <input type="search" id="f-q" placeholder="Name, code, email, phone, OTA ref…"></label>
+    <button class="btn ghost sm" type="button" id="f-clear">Clear</button>
+  </div>
+
+  <div class="sd-summary" id="summary" aria-live="polite"></div>
+  <div class="sd-tablewrap">
+    <table class="sd-table" id="table">
+      <thead><tr>
+        <th data-sort="code">Booking</th><th data-sort="guest_name">Guest</th><th>Contact</th><th data-sort="checkin">Stay</th><th>Beds / rooms</th>
+        <th data-sort="guests">Guests</th><th data-sort="total">Total</th><th data-sort="status">Status</th><th>Payment</th>
+        <th data-sort="source">Source</th><th data-sort="booked_by">Booked by</th><th>Staff notes</th><th data-sort="created_at">Booked</th><th></th>
+      </tr></thead>
+      <tbody id="rows"><tr><td colspan="14" class="muted">Loading bookings…</td></tr></tbody>
+    </table>
+  </div>
+</main>
+
+<!-- ============ booking modal (new / edit) ============ -->
+<div class="sd-modal" id="m-book" hidden>
+  <div class="sd-card wide" role="dialog" aria-modal="true" aria-labelledby="mb-title">
+    <button class="sd-x" type="button" data-close aria-label="Close">×</button>
+    <h2 id="mb-title">New booking</h2>
+    <p class="muted small" id="mb-sub">For a booking that came in by phone, Messenger, email or walk-in. Uses the same live availability as the website.</p>
+    <form id="mb-form" class="form" novalidate>
+      <div class="sd-grid3">
+        <div class="field"><label for="mb-source">Came in via</label><select id="mb-source"></select></div>
+        <div class="field"><label for="mb-status">Status</label><select id="mb-status"></select></div>
+        <div class="field"><label>Booked by · locked</label><input id="mb-by" type="text" readonly></div>
+      </div>
+      <h3 class="sd-h">Guest</h3>
+      <div class="sd-grid3">
+        <div class="field"><label for="mb-name">Full name *</label><input id="mb-name" type="text" required maxlength="120"></div>
+        <div class="field"><label for="mb-phone">Mobile</label><input id="mb-phone" type="tel" maxlength="40"></div>
+        <div class="field"><label for="mb-email">Email</label><input id="mb-email" type="email" maxlength="200"></div>
+      </div>
+      <div class="sd-grid3">
+        <div class="field"><label for="mb-country">Country</label><input id="mb-country" type="text" maxlength="60" list="countries"></div>
+        <div class="field"><label for="mb-arrival">Arrival time</label><input id="mb-arrival" type="text" maxlength="40" placeholder="e.g. 6–10 PM"></div>
+        <div class="field"><label for="mb-ref">Promo / referral</label><input id="mb-ref" type="text" maxlength="40"></div>
+      </div>
+      <h3 class="sd-h">Stay</h3>
+      <div class="zdr zdr-lg" id="mb-dates" data-allow-past><input type="hidden" id="mb-in" name="checkin"><input type="hidden" id="mb-out" name="checkout"></div>
+      <div id="mb-rooms" class="sd-rooms"><p class="muted small">Set the dates to see what's free.</p></div>
+      <label class="check"><input type="checkbox" id="mb-override"><span>Allow over the website allotment (I've checked it's free in Cloudbeds)</span></label>
+      <h3 class="sd-h">Add-ons</h3>
+      <div id="mb-addons" class="sd-addons"></div>
+      <h3 class="sd-h">Payment</h3>
+      <div class="sd-grid3">
+        <div class="field"><label for="mb-pay">Way of paying</label><select id="mb-pay"><option value="desk">Pay at check-in</option><option value="transfer">Pay ahead by bank / e-wallet transfer</option></select></div>
+        <div class="field"><label for="mb-dtype">Discount</label><select id="mb-dtype"><option value="">No discount</option><option value="percent">Percent (%)</option><option value="amount">Amount (₱)</option></select></div>
+        <div class="field"><label for="mb-dval">Value</label><input id="mb-dval" type="number" min="0" step="0.01"></div>
+      </div>
+      <label class="check" id="mb-tdisc-wrap"><input type="checkbox" id="mb-tdisc"><span>5% convenience discount (booked on the official website + paid ahead by bank / e-wallet transfer)</span></label>
+      <div class="field"><label for="mb-dreason">Discount reason · shown to the guest</label><input id="mb-dreason" type="text" maxlength="200"></div>
+      <div class="sd-bill" id="mb-bill"></div>
+      <h3 class="sd-h">Notes</h3>
+      <div class="sd-grid2">
+        <div class="field"><label for="mb-notes">Guest requests</label><textarea id="mb-notes" maxlength="2000"></textarea></div>
+        <div class="field"><label for="mb-snotes">Staff notes · internal</label><textarea id="mb-snotes" maxlength="2000"></textarea></div>
+      </div>
+      <label class="check"><input type="checkbox" id="mb-email-guest"><span id="mb-email-label">Email the guest (booking details, payment instructions and confirmation)</span></label>
+      <div id="mb-extra"></div>
+      <p class="form-msg" id="mb-msg" role="alert"></p>
+      <div class="sd-modal-actions">
+        <button class="btn ghost" type="button" data-close>Cancel</button>
+        <button class="btn" type="submit" id="mb-save">Save booking</button>
+      </div>
+    </form>
+  </div>
+</div>
+<datalist id="countries"><option>Philippines</option><option>Australia</option><option>Canada</option><option>China</option><option>France</option><option>Germany</option><option>Hong Kong</option><option>India</option><option>Indonesia</option><option>Israel</option><option>Italy</option><option>Japan</option><option>Malaysia</option><option>Netherlands</option><option>New Zealand</option><option>Singapore</option><option>South Korea</option><option>Spain</option><option>Sweden</option><option>Switzerland</option><option>Taiwan</option><option>Thailand</option><option>United Arab Emirates</option><option>United Kingdom</option><option>United States</option><option>Vietnam</option></datalist>
+
+<!-- ============ payments ============ -->
+<div class="sd-modal" id="m-pay" hidden>
+  <div class="sd-card" role="dialog" aria-modal="true" aria-labelledby="mp-title">
+    <button class="sd-x" type="button" data-close aria-label="Close">×</button>
+    <h2 id="mp-title">Payments</h2>
+    <p class="muted small">Check each upload against the bank / e-wallet, then <b>Verify</b> it. The first verified payment confirms the booking and emails the guest. <b>Reject</b> puts the booking back on a fresh 2-hour hold and asks the guest to re-upload.</p>
+    <div id="mp-sum"></div>
+    <div id="mp-list"></div>
+    <h3 class="sd-h">Record a payment</h3>
+    <p class="muted small">Received another way (cash or card at the desk, a transfer seen in the bank without an upload)? It counts as verified straight away.</p>
+    <form id="mp-form" class="sd-grid4" novalidate>
+      <div class="field"><label for="mp-amt">Amount (₱)</label><input id="mp-amt" type="number" min="1" step="0.01" required></div>
+      <div class="field"><label for="mp-method">Method</label><select id="mp-method"><option value="cash">Cash at the desk</option><option value="card">Card at the desk</option><option value="gcash">GCash</option><option value="transfer">Bank transfer</option><option value="other">Other</option></select></div>
+      <div class="field"><label for="mp-note">Note</label><input id="mp-note" type="text" maxlength="200" placeholder="OR no., reference…"></div>
+      <div class="field"><label for="mp-file">Proof (optional)</label><input id="mp-file" type="file" accept="image/*,application/pdf"></div>
+      <div class="sd-modal-actions" style="grid-column:1/-1"><p class="form-msg" id="mp-msg" role="alert"></p><button class="btn" type="submit">Record payment</button></div>
+    </form>
+  </div>
+</div>
+
+<!-- ============ calendar ============ -->
+<div class="sd-modal" id="m-cal" hidden>
+  <div class="sd-card xwide" role="dialog" aria-modal="true" aria-labelledby="mc-title">
+    <button class="sd-x" type="button" data-close aria-label="Close">×</button>
+    <h2 id="mc-title">Calendar</h2>
+    <p class="muted small">Beds / rooms the website can still sell each night (sold of the website allotment). Click a night to start a booking there. Change allotments and prices in <a href="/admin/">Rates</a>.</p>
+    <div class="sd-calbar">
+      <label>From <input type="date" id="mc-from"></label>
+      <label>Show <select id="mc-days"><option value="14">2 weeks</option><option value="21">3 weeks</option><option value="31" selected>1 month</option><option value="42">6 weeks</option></select></label>
+      <button class="btn ghost sm" type="button" id="mc-prev">← Back</button><button class="btn ghost sm" type="button" id="mc-today">Today</button><button class="btn ghost sm" type="button" id="mc-next">Forward →</button>
+      <span class="sd-legend"><i class="open"></i>free <i class="low"></i>few left <i class="full"></i>full <i class="closed"></i>closed</span>
+    </div>
+    <div class="sd-tablewrap"><table class="sd-cal" id="mc-grid"></table></div>
+    <h3 class="sd-h">Arriving / staying</h3>
+    <div id="mc-day" class="muted small">Click a date heading to list who's arriving and staying that night.</div>
+  </div>
+</div>
+
+<!-- ============ activity log ============ -->
+<div class="sd-modal" id="m-log" hidden>
+  <div class="sd-card xwide" role="dialog" aria-modal="true" aria-labelledby="ml-title">
+    <button class="sd-x" type="button" data-close aria-label="Close">×</button>
+    <h2 id="ml-title">Activity log</h2>
+    <p class="muted small">Every booking created, edited, paid or emailed is recorded automatically. Nobody can edit or delete an entry.</p>
+    <div class="sd-calbar">
+      <label>Staff <select id="ml-staff"><option value="">Anyone</option></select></label>
+      <label>From <input type="date" id="ml-from"></label><label>To <input type="date" id="ml-to"></label>
+      <button class="btn ghost sm" type="button" id="ml-refresh">Refresh</button>
+      <span class="muted small" id="ml-for"></span>
+    </div>
+    <div class="sd-tablewrap"><table class="sd-table"><thead><tr><th>When</th><th>Who</th><th>What</th><th>Booking</th><th>Details</th></tr></thead><tbody id="ml-rows"></tbody></table></div>
+    <p class="muted small">Showing the most recent 300 entries matching these filters.</p>
+  </div>
+</div>
+
+<!-- ============ team activity ============ -->
+<div class="sd-modal" id="m-team" hidden>
+  <div class="sd-card xwide" role="dialog" aria-modal="true" aria-labelledby="mt-title">
+    <button class="sd-x" type="button" data-close aria-label="Close">×</button>
+    <h2 id="mt-title">Team activity</h2>
+    <p class="muted small">"Last active" is the last time someone actually used this desk (clicked or typed), not when they last typed a password. Staff are added in <a href="/admin/">Admin → Staff</a>.</p>
+    <div class="sd-tablewrap"><table class="sd-table"><thead><tr><th>Staff</th><th>Role</th><th>Last active</th><th>Last signed in</th><th>Last booking change</th><th>Days used (30 d)</th><th>Changes (30 d)</th></tr></thead><tbody id="mt-rows"></tbody></table></div>
+  </div>
+</div>
+
+<!-- ============ payment settings ============ -->
+<div class="sd-modal" id="m-settings" hidden>
+  <div class="sd-card" role="dialog" aria-modal="true" aria-labelledby="ms-title">
+    <button class="sd-x" type="button" data-close aria-label="Close">×</button>
+    <h2 id="ms-title">Payment settings</h2>
+    <p class="muted small">What guests see when they pay ahead. Owners can change these.</p>
+    <form id="ms-form" class="form" novalidate>
+      <h3 class="sd-h">Accounts guests transfer to</h3>
+      <div id="ms-accts"></div>
+      <button class="btn ghost sm" type="button" id="ms-add">+ Add account</button>
+      <div class="sd-grid3" style="margin-top:16px">
+        <div class="field"><label for="ms-rate">Pay-ahead discount (%)</label><input id="ms-rate" type="number" min="0" max="50" step="0.5"></div>
+        <div class="field"><label for="ms-hold">Hold (minutes)</label><input id="ms-hold" type="number" min="15" max="1440" step="5"></div>
+        <div class="field"><label for="ms-cut">Proof due before check-in (hours)</label><input id="ms-cut" type="number" min="0" max="168"></div>
+      </div>
+      <div class="field"><label for="ms-alerts">Staff alert emails (comma-separated)</label><input id="ms-alerts" type="text"></div>
+      <p class="form-msg" id="ms-msg" role="alert"></p>
+      <div class="sd-modal-actions"><button class="btn ghost" type="button" data-close>Close</button><button class="btn" type="submit">Save settings</button></div>
+    </form>
+  </div>
+</div>
+
+<!-- ============ booking details ============ -->
+<div class="sd-modal" id="m-view" hidden>
+  <div class="sd-card" role="dialog" aria-modal="true" aria-labelledby="mv-title">
+    <button class="sd-x" type="button" data-close aria-label="Close">×</button>
+    <h2 id="mv-title">Booking</h2>
+    <div id="mv-body"></div>
+    <div class="sd-modal-actions" id="mv-actions"></div>
+  </div>
+</div>
+
+<div class="sd-toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
+<script src="/assets/js/config.js?v=20261017a"></script>
+<script src="/assets/js/zdates.js?v=20261017a"></script>
+<script src="/assets/js/staff.js?v=20261017a"></script>
+</body>
+</html>

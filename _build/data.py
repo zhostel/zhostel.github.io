@@ -26,10 +26,10 @@ SITE = {
 }
 
 STATS = [
-    ("Since 2017", "Throwing Z Street on the street we live on"),
+    ("2015", "Z Hostel opens on Don Pedro St., Poblacion"),
+    ("2017", "The first Z Street party"),
     ("25", "Z Street parties and counting"),
     ("City-permitted", "Cleared with Makati City Hall and Barangay Poblacion"),
-    ("Endorsed", "By the Makati Tourism Office"),
 ]
 
 YEARS = ["2017", "2018", "2019", "2020–21", "2022", "2023", "2024", "2025", "2026"]
@@ -248,4 +248,4 @@ SHOW_CHECKIN_TIMES = True
 ROOM_SLUG = {"Private Room": "private", "Private Bunk Bed Room": "private-bunk", "4-Bed Mixed Dorm": "dorm-4",
              "6-Bed Mixed Dorm": "dorm-6", "8-Bed Mixed Dorm": "dorm-8", "6-Bed Female Dorm": "dorm-6f"}
 
-SITE_PAYMENT = "Pay at check-in: cash, card or GCash."
+SITE_PAYMENT = "Pay at check-in (cash, card or GCash), or pay ahead by bank / e-wallet transfer and get 5% off."

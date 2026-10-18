@@ -1,4 +1,6 @@
 User-agent: *
 Disallow: /admin/
+Disallow: /staff/
+Disallow: /pay/
 Disallow: /events/tabi-tabi-po/admin.html
 Sitemap: https://zhostel.github.io/sitemap.xml

@@ -8,7 +8,7 @@ from data import *  # noqa
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 E = html.escape
-VER = "20261015"
+VER = "20261017a"
 
 # ------------------------------------------------------------------ helpers
 def confirm(note, fallback=""):
@@ -139,13 +139,14 @@ def footer(scripts="", mbook=True):
     </div>
     <div class="foot-bottom">
       <span>© 2026 {SITE['company']} · Z Hostel, Poblacion, Makati</span>
-      <span><a href="/privacy/">Privacy</a> · <a href="/admin/">Staff</a></span>
+      <span><a href="/privacy/">Privacy</a> · <a href="/staff/">Staff</a></span>
     </div>
   </div>
 </footer>
 <script src="/assets/js/config.js?v={VER}"></script>
 <script src="/assets/js/z.js?v={VER}" defer></script>
 {events_json()}
+<script src="/assets/js/zdates.js?v={VER}" defer></script>
 <script src="/assets/js/book.js?v={VER}" defer></script>
 {scripts}
 </body>
@@ -173,14 +174,12 @@ def room_card(r):
 <div class="card-body"><span class="tag">{E(kind)} · {E(sleeps)}</span><h3>{E(n)}</h3><p>{E(d[:120].rsplit(" ",1)[0])}…</p><div class="meta">{rate}</div>
 <div class="card-foot btns"><a class="btn sm" href="/book/?room={slug}">Book this</a></div></div></article>'''
 
-def booker_bar(checkin="", checkout="", note="Live availability and secure checkout. Best for 1–8 guests.", cls=""):
+def booker_bar(checkin="", checkout="", note="Instant booking. Pay at check-in, or pay ahead by transfer for 5% off.", cls=""):
     di = f' data-checkin="{checkin}" data-checkout="{checkout}"' if checkin else ""
-    opts = "".join(f'<option value="{n}"{" selected" if n == 2 else ""}>{n} guest{"s" if n > 1 else ""}</option>' for n in range(1, 9))
     return f'''<form class="booker {cls}"{di} aria-label="Check availability">
-  <div class="field"><label for="bk-in-{cls}">Check-in</label><input id="bk-in-{cls}" name="checkin" type="date" required></div>
-  <div class="field"><label for="bk-out-{cls}">Check-out</label><input id="bk-out-{cls}" name="checkout" type="date" required></div>
-  <div class="field g"><label for="bk-g-{cls}">Guests</label><select id="bk-g-{cls}" name="guests">{opts}</select></div>
-  <button class="btn" type="submit">Check availability</button>
+  <div class="zdr"><input type="hidden" name="checkin"><input type="hidden" name="checkout"></div>
+  <div class="zguests" data-max="8"><input type="hidden" name="guests" value="2"></div>
+  <button class="btn" type="submit">Search</button>
   <p class="note">{E(note)} Group of 9+? <a href="/contact/?type=group">Ask for group rates</a>.</p>
 </form>'''
 
@@ -419,7 +418,7 @@ def page_home():
   <div class="wrap hero-inner">
     <span class="eyebrow">Z Hostel · Poblacion, Makati</span>
     <h1>Good vibes only. <em>Home of Z Street.</em></h1>
-    <p class="lede">A hostel with a higher standard of stay, a café with restaurant-quality food, a rooftop the whole city knows, and the street party that put Poblacion on the map.</p>
+    <p class="lede">On Don Pedro Street since 2015: a hostel with a higher standard of stay, a café with restaurant-quality food, a rooftop the whole city knows, and, since 2017, the street party that put Poblacion on the map.</p>
     {booker_bar(cls="home")}
   </div>
 </section>
@@ -798,7 +797,7 @@ def page_about():
   <div class="reveal"><span class="eyebrow">The basics</span><h2>A new breed of hostel.</h2>
   <p class="lede">Z Hostel combines a higher standard of accommodation with a fun, social atmosphere. Every detail in each room was thought through for the guest. The Café gives you a taste of authentic Filipino cuisine, while the Roofdeck offers great entertainment nightly from local and international artists and DJs.</p>
   <p>The managing owners are a group of friends who took their time to conceptualize and build the hostel from an inspiration: their Sunday Slowdown sessions at a beach resort called La Luz. A certain vibe was born there from music, like-minded people, strangers becoming lifelong friends, and good conversation. That was the foundation of Z Hostel.</p>
-  <p>The same foundation kept Z going through the pandemic. Z opened around 2015 at 5660 Don Pedro St., and is back in full swing, stronger than ever, with the same brand of good vibes and top-notch service.</p></div>
+  <p>The same foundation kept Z going through the pandemic. Z opened in 2015 at 5660 Don Pedro St., and is back in full swing, stronger than ever, with the same brand of good vibes and top-notch service.</p></div>
   <div class="reveal">{img("facade", "Z Hostel on Don Pedro Street, Poblacion")}</div>
 </div></section>
 <section class="section alt"><div class="wrap">
@@ -806,7 +805,7 @@ def page_about():
   <p class="quote" style="font-size:clamp(26px,3.4vw,42px)">Z Street is a place of belonging for everyone. It keeps Poblacion's streets alive and safe so people can be themselves.</p></div>
 </div></section>
 <section class="section"><div class="wrap grid g3">
-  <div class="tile reveal"><span class="eyebrow">2017</span><h3>Z Street begins</h3><p>Z Hostel's founders closed Don Pedro and Alfonso Streets for the first Z Street block party. Since then: 25 parties and counting.</p></div>
+  <div class="tile reveal"><span class="eyebrow">2017</span><h3>Z Street begins</h3><p>Two years after opening, Z Hostel's founders closed Don Pedro and Alfonso Streets for the first Z Street block party. Since then: 25 parties and counting.</p></div>
   <div class="tile reveal"><span class="eyebrow">Partners</span><h3>Co-organized with PLUD</h3><p>Every Z Street is co-organized with Poblacion Land & Urban Development Corp. and fully permitted by the City of Makati and Barangay Poblacion. In 2023 the Makati Tourism Office formally endorsed the event calendar.</p></div>
   <div class="tile reveal"><span class="eyebrow">A first</span><h3>RFID payments</h3><p>Z introduced the first RFID payment system in a hostel in the Philippines: cashless tabs at the bar, faster service, no waiting for change. It later powered the cashless wristbands at Zombie Street 2019.</p></div>
 </div></section>
@@ -897,16 +896,13 @@ def page_book():
     countries = ["Philippines","Australia","Canada","China","France","Germany","Hong Kong","India","Indonesia","Israel","Italy","Japan","Malaysia","Netherlands","New Zealand","Singapore","South Korea","Spain","Sweden","Switzerland","Taiwan","Thailand","United Arab Emirates","United Kingdom","United States","Vietnam","Other"]
     copts = "".join(f"<option>{E(c)}</option>" for c in countries)
     body = f'''
-<section class="page-head" style="padding-bottom:24px"><div class="wrap"><span class="eyebrow">Book direct · Z Hostel Poblacion</span><h1>Book your stay</h1>
-<p class="lede">Pick your dates, your bed or room, and any extras. Your booking is confirmed instantly. {E(SITE_PAYMENT)}</p></div></section>
+<section class="page-head" style="padding-bottom:24px"><div class="wrap"><span class="eyebrow">Book direct · Z Hostel Poblacion</span><h1 style="font-size:clamp(40px,6vw,72px)">Book your stay</h1>
+<p class="lede">Pick your dates, your bed or room, and any extras, and book instantly. {E(SITE_PAYMENT)}</p></div></section>
 <section class="section tight"><div class="wrap book-wrap" id="book-engine">
   <div>
     <div class="book-step" id="st-dates">
       <div class="step-h"><span class="n">1</span><div><h2>Your dates</h2><p>{E(CHECKIN_TIMES)}</p></div></div>
-      <div class="date-row">
-        <div class="field"><label for="b-in">Check-in</label><input id="b-in" type="date" required></div>
-        <div class="field"><label for="b-out">Check-out</label><input id="b-out" type="date" required></div>
-      </div>
+      <div class="zdr zdr-lg"><input type="hidden" id="b-in" name="checkin"><input type="hidden" id="b-out" name="checkout"></div>
     </div>
     <div class="book-step" id="st-rooms">
       <div class="step-h"><span class="n">2</span><div><h2>Choose your beds or rooms</h2><p>Dorms are priced per bed, private rooms per room (sleeps 2). Prices shown are for your whole stay.</p></div></div>
@@ -939,13 +935,22 @@ def page_book():
         <details class="table-view"><summary>Booking terms & cancellation policy</summary><div class="small muted" id="b-terms" style="margin-top:8px"></div></details>
       </form>
     </div>
+    <div class="book-step" id="st-pay">
+      <div class="step-h"><span class="n">5</span><div><h2>How would you like to pay?</h2><p>Pay ahead online and save 5%, or simply pay when you arrive.</p></div></div>
+      <div class="pay-opts" id="b-pay" role="radiogroup" aria-label="Payment">
+        <label class="pay-opt" data-pay="transfer"><input type="radio" name="pay" value="transfer"><span class="pay-body"><b>Pay ahead by bank / e-wallet transfer <span class="tag hot">5% off</span></b>
+          <span class="small" id="b-pay-tnote">Transfer within 2 hours of booking and upload your screenshot. We hold your beds for you meanwhile.</span></span><span class="pay-amt" id="b-pay-tamt"></span></label>
+        <label class="pay-opt" data-pay="desk"><input type="radio" name="pay" value="desk"><span class="pay-body"><b>Pay at check-in</b>
+          <span class="small">Cash, card or GCash at the front desk. Booking confirmed straight away.</span></span><span class="pay-amt" id="b-pay-damt"></span></label>
+      </div>
+    </div>
   </div>
   <aside class="book-aside"><div class="summary-card">
     <h3>Your stay</h3>
     <div id="b-summary" aria-live="polite"><p class="muted">Pick your dates to start.</p></div>
     <p class="form-msg" id="b-msg" role="alert"></p>
     <button class="btn lg" id="b-go" type="button" disabled>Choose your dates</button>
-    <ul class="trust"><li>Instant confirmation</li><li>Live availability, no double bookings</li><li>Right on Don Pedro St., Poblacion</li></ul>
+    <ul class="trust"><li>Instant booking · 5% off when you pay ahead</li><li>Live availability, no double bookings</li><li>Right on Don Pedro St., Poblacion</li></ul>
     <p class="small muted" style="margin-top:12px">Already booked? <a href="/book/manage/">Find your booking</a></p>
   </div></aside>
 </div>
@@ -970,6 +975,22 @@ def page_manage():
 </div></section>'''
     write("/book/manage/", h + header("/book/") + body + footer(mbook=False))
 
+def page_pay():
+    h = head("Upload Your Payment", "Upload the screenshot of your bank or e-wallet transfer for your Z Hostel booking.", "/pay/")
+    body = f'''
+<section class="page-head"><div class="wrap" style="max-width:760px"><span class="eyebrow">Pay ahead · 5% off</span><h1>Upload your payment</h1>
+<p class="lede">Find your booking, transfer the amount shown, then upload a screenshot of the payment. We verify it and email your confirmation.</p>
+<form class="form form-card" id="p-find" style="margin-top:22px" novalidate>
+  <div class="pay-step"><span class="n">1</span><h2>Find your booking</h2></div>
+  <div class="row2"><div class="field"><label for="p-code">Booking code</label><input id="p-code" type="text" required placeholder="Z-1042" autocapitalize="characters" autocomplete="off"></div>
+  <div class="field"><label for="p-email">Email on the booking</label><input id="p-email" type="email" required autocomplete="email"></div></div>
+  <div class="btns"><button class="btn" type="submit">Find my booking</button></div><p class="form-msg" role="alert"></p>
+</form>
+<div id="p-out" style="margin-top:22px"></div>
+<p class="small muted" style="margin-top:22px">Trouble uploading? Send the screenshot with your booking code to <a href="mailto:ai@zhostel.com">ai@zhostel.com</a> or text <a href="tel:{SITE["phone2_tel"]}">{SITE["phone2"]}</a>.</p>
+</div></section>'''
+    write("/pay/", h + header("/book/") + body + footer(mbook=False))
+
 def page_404():
     h = head("Page not found", "This page doesn't exist.", "/404.html")
     body = f'''<section class="page-head" style="min-height:60vh"><div class="wrap"><span class="eyebrow">404</span><h1>Wrong street.</h1>
@@ -978,15 +999,15 @@ def page_404():
     write("/404.html", h + header("") + body + footer())
 
 def sitemap():
-    urls = [p for p in PAGES if p != "/404.html"] + ["/events/tabi-tabi-po/"]
+    urls = [p for p in PAGES if p not in ("/404.html", "/pay/")] + ["/events/tabi-tabi-po/"]
     xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + \
         "".join(f"  <url><loc>{SITE['url']}{u}</loc></url>\n" for u in urls) + "</urlset>\n"
     open(os.path.join(ROOT, "sitemap.xml"), "w").write(xml)
-    open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nDisallow: /admin/\nDisallow: /events/tabi-tabi-po/admin.html\nSitemap: {SITE['url']}/sitemap.xml\n")
+    open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nDisallow: /admin/\nDisallow: /staff/\nDisallow: /pay/\nDisallow: /events/tabi-tabi-po/admin.html\nSitemap: {SITE['url']}/sitemap.xml\n")
 
 if __name__ == "__main__":
     page_home(); page_stay(); page_eat(); page_zstreet()
     for s in SERIES: page_series(s)
-    page_events(); page_book(); page_manage(); page_partner(); page_about(); page_gallery(); page_contact(); page_privacy(); page_404()
+    page_events(); page_book(); page_manage(); page_pay(); page_partner(); page_about(); page_gallery(); page_contact(); page_privacy(); page_404()
     sitemap()
     print("built", len(PAGES), "pages")

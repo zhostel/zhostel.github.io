@@ -41,6 +41,21 @@ Self-managed, instant booking — no quotation step. Guests pick dates, beds/roo
 
 Tables: `room_types`, `rate_plans`, `rate_overrides`, `allotment_overrides`, `addons`, `booking_settings`, `bookings`, `booking_items`, `booking_nights`, `booking_addons`, `booking_log`, `booking_searches`.
 
+## Cloudbeds sync (prepared, off until switched on)
+Ported from the Virgin Beach build. Migration `20261016150000_cloudbeds_sync.sql` is applied; function code is in `supabase/functions/cloudbeds-sync/`.
+
+- **Pull** (Cloudbeds → site): reservations from every channel (OTAs, walk-ins, Cloudbeds) land in `bookings` with `cb_owned = true` and `source = 'cloudbeds'`, so the dashboard and calendar show the whole house. Blocks go to `cb_blocks`.
+- **Push** (site → Cloudbeds): website bookings are created in Cloudbeds as reservations. Off until `cb_sync_state.push_enabled` is set to true.
+- **History**: `{"action":"history"}` archives every reservation since 2015 into `cb_history` (for marketing/analytics; not shown on the public site).
+- **Inventory**: `booking_settings.inventory_mode` = `allotment` (website sells its own pool; today) or `shared` (website sells whatever Cloudbeds has free, minus everything already sold; use once push is on).
+
+To switch on:
+1. Cloudbeds → Account → Apps & Marketplace → API Credentials: create an API key for property 6309.
+2. Supabase → Edge Functions → deploy `cloudbeds-sync` (Verify JWT **off**), then Secrets → add `CLOUDBEDS_API_KEY`.
+3. Call the function with `{"action":"test"}`, then `setup` (maps room types, registers webhooks), then `history`.
+4. Uncomment the two `cron.schedule` lines at the end of the migration and run them (pull every 5 min, nightly full).
+5. When ready: set `push_enabled = true` and `inventory_mode = 'shared'`.
+
 ## Going live on zhostel.com
 1. Settings → Pages → Custom domain: `zhostel.com`, then point DNS (A records to GitHub Pages, `www` CNAME to `zhostel.github.io`).
 2. In `_build/data.py` set `SITE["url"] = "https://zhostel.com"`, `SHOW_CONFIRM = False`; rebuild.

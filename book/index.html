@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=DM+Sans:opsz,wght@9..40,400..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/z.css?v=20261015">
+<link rel="stylesheet" href="/assets/css/z.css?v=20261017a">
 
 </head>
 <body>
@@ -35,16 +35,13 @@
 </header>
 <main id="main">
 
-<section class="page-head" style="padding-bottom:24px"><div class="wrap"><span class="eyebrow">Book direct · Z Hostel Poblacion</span><h1>Book your stay</h1>
-<p class="lede">Pick your dates, your bed or room, and any extras. Your booking is confirmed instantly. Pay at check-in: cash, card or GCash.</p></div></section>
+<section class="page-head" style="padding-bottom:24px"><div class="wrap"><span class="eyebrow">Book direct · Z Hostel Poblacion</span><h1 style="font-size:clamp(40px,6vw,72px)">Book your stay</h1>
+<p class="lede">Pick your dates, your bed or room, and any extras, and book instantly. Pay at check-in (cash, card or GCash), or pay ahead by bank / e-wallet transfer and get 5% off.</p></div></section>
 <section class="section tight"><div class="wrap book-wrap" id="book-engine">
   <div>
     <div class="book-step" id="st-dates">
       <div class="step-h"><span class="n">1</span><div><h2>Your dates</h2><p>Check-in from 2:00 PM · check-out by 11:00 AM</p></div></div>
-      <div class="date-row">
-        <div class="field"><label for="b-in">Check-in</label><input id="b-in" type="date" required></div>
-        <div class="field"><label for="b-out">Check-out</label><input id="b-out" type="date" required></div>
-      </div>
+      <div class="zdr zdr-lg"><input type="hidden" id="b-in" name="checkin"><input type="hidden" id="b-out" name="checkout"></div>
     </div>
     <div class="book-step" id="st-rooms">
       <div class="step-h"><span class="n">2</span><div><h2>Choose your beds or rooms</h2><p>Dorms are priced per bed, private rooms per room (sleeps 2). Prices shown are for your whole stay.</p></div></div>
@@ -77,13 +74,22 @@
         <details class="table-view"><summary>Booking terms & cancellation policy</summary><div class="small muted" id="b-terms" style="margin-top:8px"></div></details>
       </form>
     </div>
+    <div class="book-step" id="st-pay">
+      <div class="step-h"><span class="n">5</span><div><h2>How would you like to pay?</h2><p>Pay ahead online and save 5%, or simply pay when you arrive.</p></div></div>
+      <div class="pay-opts" id="b-pay" role="radiogroup" aria-label="Payment">
+        <label class="pay-opt" data-pay="transfer"><input type="radio" name="pay" value="transfer"><span class="pay-body"><b>Pay ahead by bank / e-wallet transfer <span class="tag hot">5% off</span></b>
+          <span class="small" id="b-pay-tnote">Transfer within 2 hours of booking and upload your screenshot. We hold your beds for you meanwhile.</span></span><span class="pay-amt" id="b-pay-tamt"></span></label>
+        <label class="pay-opt" data-pay="desk"><input type="radio" name="pay" value="desk"><span class="pay-body"><b>Pay at check-in</b>
+          <span class="small">Cash, card or GCash at the front desk. Booking confirmed straight away.</span></span><span class="pay-amt" id="b-pay-damt"></span></label>
+      </div>
+    </div>
   </div>
   <aside class="book-aside"><div class="summary-card">
     <h3>Your stay</h3>
     <div id="b-summary" aria-live="polite"><p class="muted">Pick your dates to start.</p></div>
     <p class="form-msg" id="b-msg" role="alert"></p>
     <button class="btn lg" id="b-go" type="button" disabled>Choose your dates</button>
-    <ul class="trust"><li>Instant confirmation</li><li>Live availability, no double bookings</li><li>Right on Don Pedro St., Poblacion</li></ul>
+    <ul class="trust"><li>Instant booking · 5% off when you pay ahead</li><li>Live availability, no double bookings</li><li>Right on Don Pedro St., Poblacion</li></ul>
     <p class="small muted" style="margin-top:12px">Already booked? <a href="/book/manage/">Find your booking</a></p>
   </div></aside>
 </div>
@@ -140,14 +146,15 @@
     </div>
     <div class="foot-bottom">
       <span>© 2026 Flashpacker Inc. · Z Hostel, Poblacion, Makati</span>
-      <span><a href="/privacy/">Privacy</a> · <a href="/admin/">Staff</a></span>
+      <span><a href="/privacy/">Privacy</a> · <a href="/staff/">Staff</a></span>
     </div>
   </div>
 </footer>
-<script src="/assets/js/config.js?v=20261015"></script>
-<script src="/assets/js/z.js?v=20261015" defer></script>
+<script src="/assets/js/config.js?v=20261017a"></script>
+<script src="/assets/js/z.js?v=20261017a" defer></script>
 <script>window.Z_EVENTS=[{"name": "Tabi Tabi Po at Salakot", "start": "2026-10-30", "end": "2026-10-31", "when": "Oct 30\u201331", "note": "Salakot opening night, steps from your bed. RSVP free at zhostel.com/events/tabi-tabi-po."}, {"name": "THE ODY-Z street party", "start": "2026-11-20", "end": "2026-11-20", "when": "Nov 20", "note": "Z Hostel is home base for the whole block party. Party weekends sell out first."}];</script>
-<script src="/assets/js/book.js?v=20261015" defer></script>
+<script src="/assets/js/zdates.js?v=20261017a" defer></script>
+<script src="/assets/js/book.js?v=20261017a" defer></script>
 
 </body>
 </html>
