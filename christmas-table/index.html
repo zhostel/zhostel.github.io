@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Christmas Dinner at Salakot · Z Hostel</title>
-<meta name="description" content="Reserve a Filipino Christmas salu-salo at Salakot, Z Hostel Poblacion, with optional after-dinner drinks on the Z Roofdeck. 10 to 50 guests, flexible downpayment from ₱1,000.">
+<title>Christmas at Salakot &amp; the Z Roofdeck · Z Hostel</title>
+<meta name="description" content="Christmas dinner at Salakot, sunset or after-dinner drinks on the Z Roofdeck, or both. Z Hostel, Poblacion. 10 to 80 guests, flexible downpayment from ₱1,000.">
 <style>body{margin:0;background:#fbf6ee}</style>
 </head>
 <body>
@@ -26,7 +26,7 @@
 #sx-root button{font-family:inherit}
 .sx-hero{background:radial-gradient(1200px 400px at 80% -10%,#2f5a45 0,transparent 60%),var(--g);color:#f6efe3;padding:64px 20px 72px;text-align:center;position:relative;overflow:hidden}
 #sx-root .sx-hero h1{color:#fff7ea;font-size:clamp(34px,6vw,58px);font-weight:600;max-width:820px;margin:10px auto 14px}
-.sx-hero p{max-width:620px;margin:0 auto;font-size:18px;color:#e6dccb}
+#sx-root .sx-hero p{max-width:640px;margin:0 auto;text-align:center;font-size:18px;color:#e6dccb}
 .sx-eyebrow{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700}
 .sx-pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:26px}
 .sx-pill{border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:7px 14px;font-size:14px;color:#f6efe3}
@@ -144,7 +144,7 @@
 .sx-mbar b{font-family:Fraunces,serif;font-size:19px;display:block}.sx-mbar small{color:#d9cfbf;font-size:12px}
 .sx-mbar button{border:0;border-radius:10px;background:var(--r);color:#fff;font-weight:700;padding:11px 14px;font-size:14px}
 #sx-root{padding-bottom:64px}}
-.sx-venues{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.sx-venues{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .sx-roofbox{margin-top:14px;background:#f1eff7;border:1px solid #d9d5ea;border-radius:14px;padding:16px}
 @media(max-width:760px){.sx-venues{grid-template-columns:1fr}}
 .sx-venue{border:1.5px solid var(--line);border-radius:16px;padding:0;cursor:pointer;background:#fff;text-align:left;overflow:hidden;transition:.15s;display:flex;flex-direction:column}
@@ -170,8 +170,8 @@
     <div class="sx-lights" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
     <div class="sx-eyebrow">Z Hostel · Poblacion, Makati</div>
     <h1>Save a seat at our Christmas table</h1>
-    <p>A Filipino salu-salo for your team, barkada or family, with dinner at Salakot and, if you like, after-dinner drinks up on the Z Roofdeck. Pick your date, shape the night your way, and hold it with as little as ₱1,000.</p>
-    <div class="sx-pills"><span class="sx-pill">Roofdeck after-party</span><span class="sx-pill">10 to 50 guests</span><span class="sx-pill">Family-style Filipino dinner</span><span class="sx-pill">Drinks included</span><span class="sx-pill">Flexible downpayment</span></div>
+    <p>A Filipino salu-salo for your team, barkada or family, with dinner at Salakot, drinks up on the Z Roofdeck, or both. Pick your date, shape the night your way, and hold it with as little as ₱1,000.</p>
+    <div class="sx-pills"><span class="sx-pill">Roofdeck sunset or after-dinner drinks</span><span class="sx-pill">10 to 80 guests</span><span class="sx-pill">Family-style Filipino dinner</span><span class="sx-pill">Drinks included</span><span class="sx-pill">Flexible downpayment</span></div>
   </header>
 
   <div class="sx-wrap" id="sx-form">
@@ -179,7 +179,7 @@
       <!-- 0 VENUE -->
       <section class="sx-card">
         <div class="sx-step"><span class="sx-num">1</span><h2>Pick your spot</h2></div>
-        <p class="sx-sub">Dinner is always at Salakot. Add the Roofdeck if your group wants to keep the night going with drinks upstairs.</p>
+        <p class="sx-sub">Dinner happens at Salakot. The Roofdeck is for drinks: at sunset, after dinner, or on its own.</p>
         <div class="sx-venues" id="sx-venues"></div>
         <div id="sx-roof" class="sx-roofbox sx-hide"><div class="sx-label" style="margin-top:0">Roofdeck drinks</div><div class="sx-seg" id="sx-rdrinks"></div><div class="sx-label">Roofdeck space</div><div class="sx-seg" id="sx-rarea"></div></div>
       </section>
@@ -207,12 +207,12 @@
         </div>
         <div class="sx-label">What kind of gathering?</div>
         <div class="sx-row" id="sx-occ"></div>
-        <div class="sx-label">How would you like the space?</div>
-        <div class="sx-row" id="sx-space"></div>
+        <div id="sx-spacewrap"><div class="sx-label">How would you like the space?</div>
+        <div class="sx-row" id="sx-space"></div></div>
       </section>
 
       <!-- 3 MENU -->
-      <section class="sx-card">
+      <section class="sx-card" id="sx-menucard">
         <div class="sx-step"><span class="sx-num">4</span><h2>Pick your menu</h2></div>
         <p class="sx-sub">Prices are per guest and shown as ranges. We'll firm them up with you once we know your menu and date.</p>
         <div class="sx-tiers" id="sx-tiers"></div>
@@ -328,6 +328,10 @@ var CONFIG = {
      spaces:[{id:"table",label:"Reserved tables",note:"Part of the restaurant, 10+ guests",min:[0,0]},
              {id:"section",label:"Private section",note:"Your own corner, 20+ guests",min:[0,0]},
              {id:"whole",label:"Whole restaurant",note:"Exclusive, 30+ guests · ₱30K–50K minimum",min:[30000,50000]}]},
+    {id:"roof", name:"Z Roofdeck", line:"Rooftop drinks, no dinner", desc:"Sunset drinks before your night out, or a nightcap after dinner elsewhere. Drinks only: no dinner service upstairs.", meta:"10–80 guests · sunset or after dinner", min:10, max:80, roof:true, drinksOnly:true,
+     slots:[{id:"sunset",label:"Sunset drinks",note:"5:00 – 7:30 PM"},{id:"after",label:"After-dinner drinks",note:"8:30 – 11:00 PM"}],
+     spaces:[{id:"roof",label:"Roofdeck",note:"",min:[0,0]}],
+     note:"No dinner is served on the Roofdeck. Want dinner too? Choose Salakot + Roofdeck. Rain plan: if the weather turns, we move your drinks under cover or down to Salakot."},
     {id:"both", name:"Salakot + Roofdeck", line:"Dinner downstairs, drinks upstairs", desc:"Christmas dinner at Salakot, then up to the Z Roofdeck for after-dinner drinks under the city lights.", meta:"20–50 guests · dinner into late",  min:20, max:50, roof:true,
      slots:[{id:"dinner",label:"Dinner + Roofdeck",note:"Dinner 6:00 · Roofdeck 8:30 – 11:00 PM"},{id:"early",label:"Early dinner + Roofdeck",note:"Dinner 5:30 · Roofdeck 8:00 – 10:30 PM"}],
      spaces:[{id:"table",label:"Reserved tables",note:"Part of the restaurant, 20+ guests",min:[0,0]},
@@ -361,10 +365,10 @@ var CONFIG = {
     {id:"flowers", name:"Flowers", options:[
       {label:"None", range:[0,0]}, {label:"Centerpieces", range:[2500,5000]},
       {label:"Centerpieces + entrance", range:[6000,12000]}]},
-    {id:"lechon", name:"Lechon", options:[
+    {id:"lechon", name:"Lechon", dinnerOnly:true, options:[
       {label:"None", range:[0,0]}, {label:"Lechon belly", note:"Good for 15–20", range:[3500,5000]},
       {label:"Whole lechon", note:"Good for 40–50", range:[9000,14000]}]},
-    {id:"drinks", name:"More drinks", options:[
+    {id:"drinks", name:"More drinks", dinnerOnly:true, options:[
       {label:"As included", range:[0,0]}, {label:"+1 hour free-flow", per:"guest", range:[200,300]},
       {label:"Beer buckets", note:"1 per 5 guests", per:"guest", range:[130,160]}, {label:"Open bar, 3 hours", per:"guest", range:[600,850]}]},
     {id:"host", name:"Host, games & raffle", options:[
@@ -463,13 +467,16 @@ function drawVenues(){
       if(!vv.slots.some(function(s){return s.id===S.slot})) S.slot=vv.slots[Math.min(1,vv.slots.length-1)].id;
       if(!vv.spaces.some(function(s){return s.id===S.space})) S.space=vv.spaces[0].id;
       $("sx-gr").min=vv.min; $("sx-gr").max=vv.max; setGuests(S.guests);
-      drawVenues(); drawChoices(); update();
+      drawVenues(); drawChoices(); drawAddons(); update();
     };
     box.appendChild(b);
   });
   var n=V().note, el=$("sx-vnote"); if(!el){el=document.createElement("p");el.id="sx-vnote";el.style.cssText="font-size:13.5px;color:#6d675f;margin-top:12px";box.parentNode.appendChild(el)}
   el.textContent=n||""; el.classList.toggle("sx-hide",!n);
   $("sx-roof").classList.toggle("sx-hide",!V().roof);
+  $("sx-menucard").classList.toggle("sx-hide",!!V().drinksOnly);
+  $("sx-spacewrap").classList.toggle("sx-hide",!!V().drinksOnly);
+  var k=0; [].forEach.call(document.querySelectorAll("#sx-root .sx-card .sx-num"),function(n){ if(!n.closest(".sx-hide")) n.textContent=++k; });
   [["sx-rdrinks","drinks","rdrinks"],["sx-rarea","areas","rarea"]].forEach(function(c){
     var seg=$(c[0]); seg.innerHTML="";
     CONFIG.roof[c[1]].forEach(function(o,i){
@@ -508,6 +515,7 @@ function optPrice(o){
 function drawAddons(){
   var box=$("sx-addons"); box.innerHTML="";
   CONFIG.addons.forEach(function(a){
+    if(a.dinnerOnly && V().drinksOnly) return;
     var w=document.createElement("div"); w.className="sx-addon";
     w.innerHTML='<div class="sx-addon-h"><strong>'+a.name+'</strong>'+(a.hint?'<em>'+a.hint+'</em>':'')+'</div>';
     var seg=document.createElement("div"); seg.className="sx-seg";
@@ -533,9 +541,10 @@ $("sx-gr").oninput=function(){setGuests(+this.value)};
 /* ---------- estimate ---------- */
 function estimate(){
   var g=S.guests, t=CONFIG.tiers.filter(function(x){return x.id===S.tier})[0];
-  var lines=[], lo=t.range[0]*g, hi=t.range[1]*g;
-  lines.push([t.name+" × "+g, range(lo,hi)]);
+  var dOnly=V().drinksOnly, lines=[], lo=dOnly?0:t.range[0]*g, hi=dOnly?0:t.range[1]*g;
+  if(!dOnly) lines.push([t.name+" × "+g, range(lo,hi)]);
   CONFIG.addons.forEach(function(a){
+    if(a.dinnerOnly && dOnly) return;
     var o=a.options[S.add[a.id]]; if(!o||o.perk!==undefined||!o.range[1]) return;
     var m=o.per==="guest"?g:1, l=o.range[0]*m, h=o.range[1]*m;
     lo+=l; hi+=h; lines.push([a.name.split(" &")[0].split(",")[0]+": "+o.label, range(l,h)]);
@@ -558,7 +567,7 @@ function update(){
   if(S.date){var dt=parse(S.date), sl=V().slots.filter(function(x){return x.id===S.slot})[0];
     $("sx-sdate").textContent=DOW[dt.getDay()]+", "+MON[dt.getMonth()].slice(0,3)+" "+dt.getDate()+" · "+sl.label+" · "+daysOut()+" days away";}
   else $("sx-sdate").textContent="Pick a date";
-  $("sx-svenue").textContent=V().name+" · "+V().spaces.filter(function(x){return x.id===S.space})[0].label;
+  $("sx-svenue").textContent=V().name+" · "+(V().drinksOnly?CONFIG.roof.areas[S.rarea].label:V().spaces.filter(function(x){return x.id===S.space})[0].label);
   $("sx-lines").innerHTML=e.lines.map(function(l){return'<div class="sx-line"><span>'+l[0]+'</span><span>'+l[1]+'</span></div>'}).join("");
   $("sx-total").textContent=range(e.lo,e.hi); $("sx-mtotal").textContent=range(e.lo,e.hi); $("sx-mdate").textContent=S.date?$("sx-sdate").textContent.split(" · ")[0]+" · "+g+" guests":"Estimated total · "+g+" guests";
   $("sx-ph").textContent="About "+range(e.lo/g,e.hi/g)+" per guest";
@@ -610,10 +619,10 @@ $("sx-submit").onclick=function(){
   if(S.paymode==="now"&&!S.file&&!$("sx-refno").value.trim()){err.textContent="Add a reference number or upload your proof of payment, or choose \"Send me instructions\".";return}
   if(!$("sx-agree").checked){err.textContent="Please tick the box to confirm you've read how reservations work.";return}
   var e=estimate(), ref=refCode(), lv=$("sx-level").querySelector("strong").textContent.replace(".","");
-  var addons={}; CONFIG.addons.forEach(function(a){addons[a.name]=a.options[S.add[a.id]].label});
+  var addons={}; CONFIG.addons.forEach(function(a){addons[a.name]=(a.dinnerOnly&&V().drinksOnly)?"":a.options[S.add[a.id]].label});
   var payload={
     ref:ref, submittedAt:new Date().toISOString(), date:S.date, daysOut:daysOut(), slot:S.slot, altDate:$("sx-alt").value,
-    guests:S.guests, venue:V().name, roofdeck:V().roof?CONFIG.roof.drinks[S.rdrinks].label+" · "+CONFIG.roof.areas[S.rarea].label:"", occasion:S.occ, space:V().spaces.filter(function(x){return x.id===S.space})[0].label, tier:S.tier, addons:addons,
+    guests:S.guests, venue:V().name, roofdeck:V().roof?CONFIG.roof.drinks[S.rdrinks].label+" · "+CONFIG.roof.areas[S.rarea].label:"", occasion:S.occ, space:V().drinksOnly?CONFIG.roof.areas[S.rarea].label:V().spaces.filter(function(x){return x.id===S.space})[0].label, tier:V().drinksOnly?"Drinks only":S.tier, addons:addons,
     estimateLow:Math.round(e.lo), estimateHigh:Math.round(e.hi), perGuestLow:Math.round(e.lo/S.guests), perGuestHigh:Math.round(e.hi/S.guests),
     downpayment:S.down, downpaymentPct:Math.round(S.down/e.mid*100), commitment:lv, payMode:S.paymode,
     refNo:$("sx-refno").value.trim(), amountSent:$("sx-paidamt").value, file:S.paymode==="now"?S.file:null,
