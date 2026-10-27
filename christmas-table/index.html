@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Christmas Table at Salakot · Z Hostel</title>
-<meta name="description" content="Reserve a Filipino Christmas salu-salo at Salakot, Z Hostel Poblacion. 10 to 60 guests, drinks included, flexible downpayment from ₱1,000.">
+<title>Christmas Parties at Salakot &amp; Z Roofdeck · Z Hostel</title>
+<meta name="description" content="Reserve a Filipino Christmas salu-salo at Salakot or up on the Z Roofdeck, Z Hostel Poblacion. 10 to 80 guests, drinks included, flexible downpayment from ₱1,000.">
 <style>body{margin:0;background:#fbf6ee}</style>
 </head>
 <body>
@@ -144,6 +144,20 @@
 .sx-mbar b{font-family:Fraunces,serif;font-size:19px;display:block}.sx-mbar small{color:#d9cfbf;font-size:12px}
 .sx-mbar button{border:0;border-radius:10px;background:var(--r);color:#fff;font-weight:700;padding:11px 14px;font-size:14px}
 #sx-root{padding-bottom:64px}}
+.sx-venues{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:760px){.sx-venues{grid-template-columns:1fr}}
+.sx-venue{border:1.5px solid var(--line);border-radius:16px;padding:0;cursor:pointer;background:#fff;text-align:left;overflow:hidden;transition:.15s;display:flex;flex-direction:column}
+.sx-venue:hover{border-color:var(--g2)}
+.sx-venue.sx-on{border-color:var(--g);box-shadow:inset 0 0 0 1px var(--g)}
+.sx-venue .sx-vart{height:78px;position:relative;background:var(--g)}
+.sx-venue .sx-vart.sx-street{background:linear-gradient(180deg,#2f5a45,#1f3a2e)}
+.sx-venue .sx-vart.sx-roof{background:linear-gradient(180deg,#1b2440 0,#3b3a63 60%,#a3412a 140%)}
+.sx-venue .sx-vart.sx-both{background:linear-gradient(90deg,#1f3a2e 50%,#2b2d50 50%)}
+.sx-venue .sx-vart i{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--gold)}
+.sx-venue .sx-vart b{position:absolute;left:14px;bottom:10px;color:#fff;font-family:Fraunces,serif;font-size:19px;font-weight:600}
+.sx-venue .sx-vbody{padding:12px 14px 14px;font-size:13.5px;color:#4a453e}
+.sx-venue .sx-vbody strong{display:block;color:var(--ink);font-size:14px;margin-bottom:3px}
+.sx-venue .sx-vbody span{display:block;color:var(--mute);font-size:12.5px;margin-top:6px}
 .sx-hide{display:none!important}
 .sx-faq details{border-top:1px solid var(--line);padding:12px 0}
 .sx-faq summary{cursor:pointer;font-weight:700}
@@ -153,17 +167,24 @@
 <div id="sx-root">
   <header class="sx-hero">
     <div class="sx-lights" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-    <div class="sx-eyebrow">Salakot at Z Hostel · Poblacion, Makati</div>
+    <div class="sx-eyebrow">Z Hostel · Poblacion, Makati</div>
     <h1>Save a seat at our Christmas table</h1>
-    <p>A Filipino salu-salo for your team, barkada or family. Pick your date, shape the night the way you like it, and hold it with as little as ₱1,000.</p>
-    <div class="sx-pills"><span class="sx-pill">10 to 60 guests</span><span class="sx-pill">Family-style Filipino dinner</span><span class="sx-pill">Drinks included</span><span class="sx-pill">Flexible downpayment</span></div>
+    <p>A Filipino salu-salo for your team, barkada or family, at street level in Salakot or up on the Z Roofdeck. Pick your spot and date, shape the night your way, and hold it with as little as ₱1,000.</p>
+    <div class="sx-pills"><span class="sx-pill">Salakot or the Roofdeck</span><span class="sx-pill">10 to 80 guests</span><span class="sx-pill">Family-style Filipino dinner</span><span class="sx-pill">Drinks included</span><span class="sx-pill">Flexible downpayment</span></div>
   </header>
 
   <div class="sx-wrap" id="sx-form">
     <main>
+      <!-- 0 VENUE -->
+      <section class="sx-card">
+        <div class="sx-step"><span class="sx-num">1</span><h2>Pick your spot</h2></div>
+        <p class="sx-sub">Two Christmas settings under one roof. Not sure? Choose either; we'll talk it through with you.</p>
+        <div class="sx-venues" id="sx-venues"></div>
+      </section>
+
       <!-- 1 DATE -->
       <section class="sx-card">
-        <div class="sx-step"><span class="sx-num">1</span><h2>Choose your date</h2></div>
+        <div class="sx-step"><span class="sx-num">2</span><h2>Choose your date</h2></div>
         <p class="sx-sub">Fridays and Saturdays go first. Not sure yet? Pick your favourite and tell us a backup below.</p>
         <div class="sx-cal-head"><button class="sx-nav" id="sx-prev" aria-label="Previous month">‹</button><strong id="sx-month"></strong><button class="sx-nav" id="sx-next" aria-label="Next month">›</button></div>
         <div class="sx-cal" id="sx-cal"></div>
@@ -174,7 +195,7 @@
 
       <!-- 2 GROUP -->
       <section class="sx-card">
-        <div class="sx-step"><span class="sx-num">2</span><h2>Who's coming?</h2></div>
+        <div class="sx-step"><span class="sx-num">3</span><h2>Who's coming?</h2></div>
         <p class="sx-sub">An estimate is fine. You can change the headcount up to 5 days before.</p>
         <div class="sx-guests">
           <button class="sx-step-btn" id="sx-minus" aria-label="Fewer guests">−</button>
@@ -190,21 +211,21 @@
 
       <!-- 3 MENU -->
       <section class="sx-card">
-        <div class="sx-step"><span class="sx-num">3</span><h2>Pick your table</h2></div>
+        <div class="sx-step"><span class="sx-num">4</span><h2>Pick your menu</h2></div>
         <p class="sx-sub">Prices are per guest and shown as ranges. We'll firm them up with you once we know your menu and date.</p>
         <div class="sx-tiers" id="sx-tiers"></div>
       </section>
 
       <!-- 4 ADD-ONS -->
       <section class="sx-card">
-        <div class="sx-step"><span class="sx-num">4</span><h2>Make it yours</h2></div>
+        <div class="sx-step"><span class="sx-num">5</span><h2>Make it yours</h2></div>
         <p class="sx-sub">Every extra has levels. Choose what fits your budget, or leave it at "None" and decide later.</p>
         <div id="sx-addons"></div>
       </section>
 
       <!-- 5 ABOUT YOU -->
       <section class="sx-card">
-        <div class="sx-step"><span class="sx-num">5</span><h2>A little about you</h2></div>
+        <div class="sx-step"><span class="sx-num">6</span><h2>A little about you</h2></div>
         <p class="sx-sub">So we can plan the night around you. Only name, mobile and email are required.</p>
         <div class="sx-grid2">
           <div class="sx-field"><label for="sx-name">Your name *</label><input id="sx-name" autocomplete="name"></div>
@@ -223,7 +244,7 @@
 
       <!-- 6 RESERVE -->
       <section class="sx-card" id="sx-reserve">
-        <div class="sx-step"><span class="sx-num">6</span><h2>Hold your date</h2></div>
+        <div class="sx-step"><span class="sx-num">7</span><h2>Hold your date</h2></div>
         <p class="sx-sub">Start small or lock it in. The more you put down, the more firmly your date and price are held. Everything you pay is credited to your bill.</p>
         <div class="sx-dp">
           <div><div class="sx-dp-amt" id="sx-dpamt">₱1,000</div><div class="sx-dp-pct" id="sx-dppct"></div></div>
@@ -244,7 +265,7 @@
           <div class="sx-label">Proof of payment</div>
           <label class="sx-drop" id="sx-drop"><input type="file" id="sx-file" accept="image/*,application/pdf" hidden><span id="sx-droptxt">Tap to upload a screenshot or PDF (max 5 MB)</span></label>
         </div>
-        <label style="display:flex;gap:10px;align-items:flex-start;margin-top:16px;font-size:14px;color:#4a453e"><input type="checkbox" id="sx-agree" style="margin-top:4px;accent-color:#1f3a2e"> I understand this is a request. Salakot will confirm my date, final menu and price within 24 hours, and my downpayment is credited to the final bill.</label>
+        <label style="display:flex;gap:10px;align-items:flex-start;margin-top:16px;font-size:14px;color:#4a453e"><input type="checkbox" id="sx-agree" style="margin-top:4px;accent-color:#1f3a2e"> I understand this is a request. Z Hostel will confirm my venue, date, final menu and price within 24 hours, and my downpayment is credited to the final bill.</label>
         <div class="sx-err" id="sx-err" role="alert"></div>
         <button class="sx-cta" id="sx-submit">Send my Christmas table request</button>
       </section>
@@ -262,7 +283,7 @@
     <aside class="sx-side">
       <div class="sx-sum">
         <div class="sx-date" id="sx-sdate">Pick a date</div>
-        <h3>Your Christmas table</h3>
+        <h3>Your Christmas table</h3><div id="sx-svenue" style="font-size:13.5px;color:#d9cfbf;margin-top:2px"></div>
         <div class="sx-lines" id="sx-lines"></div>
         <div style="font-size:13px;color:#cbbfae">Estimated total</div>
         <div class="sx-total" id="sx-total">—</div>
@@ -278,7 +299,7 @@
   <div class="sx-wrap sx-hide" id="sx-thanks" style="grid-template-columns:1fr;max-width:720px">
     <section class="sx-card sx-done">
       <div class="sx-eyebrow" style="color:var(--r)">Request received</div>
-      <h2>Salamat! Your table is pencilled in.</h2>
+      <h2>Salamat! Your Christmas party is pencilled in.</h2>
       <p>Your reference number</p>
       <div class="sx-ref" id="sx-refout"></div>
       <p id="sx-thanksmsg" style="color:#4a453e"></p>
@@ -297,18 +318,26 @@ var CONFIG = {
   firstDate: "2026-11-20", lastDate: "2026-12-30",
   closed: ["2026-12-24","2026-12-25","2026-12-31"],
   popularDays: [5,6],                      // Fri, Sat
-  minGuests: 10, maxGuests: 60,
-  slots: [
-    {id:"lunch", label:"Lunch", note:"11:30 AM – 2:30 PM"},
-    {id:"dinner", label:"Dinner", note:"6:00 – 9:00 PM"},
-    {id:"late", label:"Late dinner", note:"7:30 – 10:30 PM"}
+  minGuests: 10, maxGuests: 80,
+  // Venues: each has its own guest range, time slots and space options
+  venues: [
+    {id:"salakot", name:"Salakot", line:"Streetside restaurant & bar", desc:"Warm, cosy and right on Don Pedro St. Great for sit-down dinners and speeches.", meta:"10–50 guests · lunch or dinner", min:10, max:50,
+     slots:[{id:"lunch",label:"Lunch",note:"11:30 AM – 2:30 PM"},{id:"dinner",label:"Dinner",note:"6:00 – 9:00 PM"},{id:"late",label:"Late dinner",note:"7:30 – 10:30 PM"}],
+     spaces:[{id:"table",label:"Reserved tables",note:"Part of the restaurant, 10+ guests",min:[0,0]},
+             {id:"section",label:"Private section",note:"Your own corner, 20+ guests",min:[0,0]},
+             {id:"whole",label:"Whole restaurant",note:"Exclusive, 30+ guests · ₱30K–50K minimum",min:[30000,50000]}]},
+    {id:"roof", name:"Z Roofdeck", line:"Open-air rooftop bar", desc:"City lights, cool December air and room to dance. Best for parties that go late.", meta:"20–80 guests · evenings", min:20, max:80,
+     slots:[{id:"sunset",label:"Sunset",note:"5:00 – 8:00 PM"},{id:"dinner",label:"Dinner",note:"6:30 – 9:30 PM"},{id:"late",label:"Late party",note:"8:00 – 11:00 PM"}],
+     spaces:[{id:"area",label:"Reserved area",note:"Part of the Roofdeck, 20+ guests",min:[0,0]},
+             {id:"half",label:"Half Roofdeck",note:"Your own side, 30+ guests · ₱40K–60K minimum",min:[40000,60000]},
+             {id:"whole",label:"Whole Roofdeck",note:"Exclusive, 50+ guests · ₱70K–100K minimum",min:[70000,100000]}],
+     note:"Rain plan: if the weather turns, we move your party under cover or down to Salakot."},
+    {id:"both", name:"Both", line:"Dinner downstairs, party upstairs", desc:"Sit-down dinner at Salakot, then up to the Roofdeck for drinks and dancing.", meta:"20–50 guests · dinner into late", min:20, max:50,
+     slots:[{id:"dinner",label:"Dinner + after-party",note:"6:00 – 11:00 PM"},{id:"early",label:"Early dinner + party",note:"5:30 – 10:00 PM"}],
+     spaces:[{id:"section",label:"Salakot section + Roofdeck area",note:"20+ guests · roof transfer ₱8K–15K",min:[0,0],fee:[8000,15000]},
+             {id:"whole",label:"Whole Salakot + Roofdeck area",note:"30+ guests · ₱45K–70K minimum",min:[45000,70000]}]}
   ],
   occasions: ["Office party","Barkada","Family","Reunion","Other"],
-  spaces: [
-    {id:"table", label:"Reserved tables", note:"Part of the restaurant, 10+ guests", min:[0,0]},
-    {id:"section", label:"Private section", note:"Your own corner, 20+ guests", min:[0,0]},
-    {id:"whole", label:"Whole venue", note:"Exclusive, 30+ guests · ₱30K–50K minimum", min:[30000,50000]}
-  ],
   // per-guest ranges [low, high]
   tiers: [
     {id:"salo", name:"Salo-Salo", range:[900,1100], tag:"Most booked", items:["Starter platter, 3 Filipino mains, unlimited rice","Christmas dessert","Bottomless iced tea","2 drinks each: beer, wine or Christmas cocktail"]},
@@ -380,7 +409,7 @@ var parse=function(s){var p=s.split("-");return new Date(+p[0],p[1]-1,+p[2])};
 var first=parse(CONFIG.firstDate), last=parse(CONFIG.lastDate);
 if(first<today){first=new Date(today);first.setDate(first.getDate()+3)}
 
-var S={date:null, slot:"dinner", guests:25, occ:"Office party", space:"section", tier:"salo", add:{}, matters:[], down:1000, paymode:"now", file:null, viewMonth:Math.max(11,first.getMonth())};
+var S={venue:"salakot", date:null, slot:"dinner", guests:25, occ:"Office party", space:"section", tier:"salo", add:{}, matters:[], down:1000, paymode:"now", file:null, viewMonth:Math.max(11,first.getMonth())};
 CONFIG.addons.forEach(function(a){S.add[a.id]=0});
 
 /* ---------- calendar ---------- */
@@ -416,10 +445,29 @@ function chips(el,list,key,getId,render){
     box.appendChild(b);
   });
 }
+function V(){return CONFIG.venues.filter(function(v){return v.id===S.venue})[0]}
+function drawVenues(){
+  var box=$("sx-venues"); box.innerHTML="";
+  CONFIG.venues.forEach(function(v){
+    var b=document.createElement("button"); b.type="button"; b.className="sx-venue"+(S.venue===v.id?" sx-on":"");
+    var dots=""; for(var i=0;i<7;i++){dots+='<i style="left:'+(10+i*13)+'%;top:'+(v.id==="roof"?14+((i*37)%30):10+(i%2)*6)+'px"></i>'}
+    b.innerHTML='<div class="sx-vart sx-'+(v.id==="salakot"?"street":v.id)+'">'+dots+'<b>'+v.name+'</b></div><div class="sx-vbody"><strong>'+v.line+'</strong>'+v.desc+'<span>'+v.meta+'</span></div>';
+    b.onclick=function(){
+      S.venue=v.id; var vv=V();
+      if(!vv.slots.some(function(s){return s.id===S.slot})) S.slot=vv.slots[Math.min(1,vv.slots.length-1)].id;
+      if(!vv.spaces.some(function(s){return s.id===S.space})) S.space=vv.spaces[0].id;
+      $("sx-gr").min=vv.min; $("sx-gr").max=vv.max; setGuests(S.guests);
+      drawVenues(); drawChoices(); update();
+    };
+    box.appendChild(b);
+  });
+  var n=V().note, el=$("sx-vnote"); if(!el){el=document.createElement("p");el.id="sx-vnote";el.style.cssText="font-size:13.5px;color:#6d675f;margin-top:12px";box.parentNode.appendChild(el)}
+  el.textContent=n||""; el.classList.toggle("sx-hide",!n);
+}
 function drawChoices(){
-  chips("sx-slot",CONFIG.slots,"slot",function(x){return x.id},function(x){return x.label+"<span>"+x.note+"</span>"});
+  chips("sx-slot",V().slots,"slot",function(x){return x.id},function(x){return x.label+"<span>"+x.note+"</span>"});
   chips("sx-occ",CONFIG.occasions,"occ",function(x){return x},function(x){return x});
-  chips("sx-space",CONFIG.spaces,"space",function(x){return x.id},function(x){return x.label+"<span>"+x.note+"</span>"});
+  chips("sx-space",V().spaces,"space",function(x){return x.id},function(x){return x.label+"<span>"+x.note+"</span>"});
   chips("sx-paymode",[{id:"now",l:"Pay now",n:"Bank or e-wallet, upload proof"},{id:"later",l:"Send me instructions",n:"We'll message you first"}],"paymode",function(x){return x.id},function(x){return x.l+"<span>"+x.n+"</span>"});
 }
 
@@ -460,7 +508,7 @@ function drawAddons(){
 (function(){var box=$("sx-matters");CONFIG.matters.forEach(function(m){var l=document.createElement("label");l.innerHTML='<input type="checkbox" value="'+m+'">'+m;box.appendChild(l)})})();
 
 /* ---------- guests ---------- */
-function setGuests(n){S.guests=Math.max(CONFIG.minGuests,Math.min(CONFIG.maxGuests,n));$("sx-gn").textContent=S.guests;$("sx-gr").value=S.guests;update()}
+function setGuests(n){var v=V();S.guests=Math.max(v.min,Math.min(v.max,n));$("sx-gn").textContent=S.guests;$("sx-gr").value=S.guests;update()}
 $("sx-minus").onclick=function(){setGuests(S.guests-1)};
 $("sx-plus").onclick=function(){setGuests(S.guests+1)};
 $("sx-gr").oninput=function(){setGuests(+this.value)};
@@ -475,8 +523,9 @@ function estimate(){
     var m=o.per==="guest"?g:1, l=o.range[0]*m, h=o.range[1]*m;
     lo+=l; hi+=h; lines.push([a.name.split(" &")[0].split(",")[0]+": "+o.label, range(l,h)]);
   });
-  var sp=CONFIG.spaces.filter(function(x){return x.id===S.space})[0];
-  if(sp.min[1]){ if(lo<sp.min[0]||hi<sp.min[1]) lines.push(["Whole-venue minimum applies", range(sp.min[0],sp.min[1])]); lo=Math.max(lo,sp.min[0]); hi=Math.max(hi,sp.min[1]); }
+  var sp=V().spaces.filter(function(x){return x.id===S.space})[0];
+  if(sp.fee){ lo+=sp.fee[0]; hi+=sp.fee[1]; lines.push(["Roofdeck after-party", range(sp.fee[0],sp.fee[1])]); }
+  if(sp.min[1]){ if(lo<sp.min[0]||hi<sp.min[1]) lines.push([sp.label+" minimum", range(sp.min[0],sp.min[1])]); lo=Math.max(lo,sp.min[0]); hi=Math.max(hi,sp.min[1]); }
   return {lo:lo, hi:hi, mid:(lo+hi)/2, lines:lines};
 }
 function daysOut(){ if(!S.date) return null; return Math.round((parse(S.date)-today)/864e5) }
@@ -485,9 +534,10 @@ function requiredPct(){ var d=daysOut(); if(d===null) return 0; for(var i=0;i<CO
 function update(){
   var e=estimate(), g=S.guests;
   // summary
-  if(S.date){var dt=parse(S.date), sl=CONFIG.slots.filter(function(x){return x.id===S.slot})[0];
+  if(S.date){var dt=parse(S.date), sl=V().slots.filter(function(x){return x.id===S.slot})[0];
     $("sx-sdate").textContent=DOW[dt.getDay()]+", "+MON[dt.getMonth()].slice(0,3)+" "+dt.getDate()+" · "+sl.label+" · "+daysOut()+" days away";}
   else $("sx-sdate").textContent="Pick a date";
+  $("sx-svenue").textContent=V().name+" · "+V().spaces.filter(function(x){return x.id===S.space})[0].label;
   $("sx-lines").innerHTML=e.lines.map(function(l){return'<div class="sx-line"><span>'+l[0]+'</span><span>'+l[1]+'</span></div>'}).join("");
   $("sx-total").textContent=range(e.lo,e.hi); $("sx-mtotal").textContent=range(e.lo,e.hi); $("sx-mdate").textContent=S.date?$("sx-sdate").textContent.split(" · ")[0]+" · "+g+" guests":"Estimated total · "+g+" guests";
   $("sx-ph").textContent="About "+range(e.lo/g,e.hi/g)+" per guest";
@@ -542,7 +592,7 @@ $("sx-submit").onclick=function(){
   var addons={}; CONFIG.addons.forEach(function(a){addons[a.name]=a.options[S.add[a.id]].label});
   var payload={
     ref:ref, submittedAt:new Date().toISOString(), date:S.date, daysOut:daysOut(), slot:S.slot, altDate:$("sx-alt").value,
-    guests:S.guests, occasion:S.occ, space:S.space, tier:S.tier, addons:addons,
+    guests:S.guests, venue:V().name, occasion:S.occ, space:V().spaces.filter(function(x){return x.id===S.space})[0].label, tier:S.tier, addons:addons,
     estimateLow:Math.round(e.lo), estimateHigh:Math.round(e.hi), perGuestLow:Math.round(e.lo/S.guests), perGuestHigh:Math.round(e.hi/S.guests),
     downpayment:S.down, downpaymentPct:Math.round(S.down/e.mid*100), commitment:lv, payMode:S.paymode,
     refNo:$("sx-refno").value.trim(), amountSent:$("sx-paidamt").value, file:S.paymode==="now"?S.file:null,
@@ -555,7 +605,7 @@ $("sx-submit").onclick=function(){
   var done=function(){
     $("sx-form").classList.add("sx-hide"); $("sx-mbar").classList.add("sx-hide"); $("sx-thanks").classList.remove("sx-hide");
     $("sx-refout").textContent=ref;
-    $("sx-thanksmsg").textContent="We'll reach you on "+payload.contactVia+" within 24 hours to confirm your "+payload.guests+"-guest table on "+$("sx-sdate").textContent.split(" · ")[0]+"."+(S.paymode==="now"?" We'll verify your "+peso(S.down)+" downpayment and send a receipt.":" We'll send payment instructions for your "+peso(S.down)+" downpayment.");
+    $("sx-thanksmsg").textContent="We'll reach you on "+payload.contactVia+" within 24 hours to confirm your "+payload.guests+"-guest party at "+payload.venue+" on "+$("sx-sdate").textContent.split(" · ")[0]+"."+(S.paymode==="now"?" We'll verify your "+peso(S.down)+" downpayment and send a receipt.":" We'll send payment instructions for your "+peso(S.down)+" downpayment.");
     $("sx-thanks").scrollIntoView({behavior:"smooth"});
   };
   if(!CONFIG.endpoint){ console.warn("Salakot form: no endpoint set; inquiry not saved", payload); done(); return; }
@@ -563,7 +613,7 @@ $("sx-submit").onclick=function(){
     .then(done).catch(function(){btn.disabled=false;btn.textContent="Send my Christmas table request";err.textContent="We couldn't send that. Please check your connection and try again, or message us on Facebook."});
 };
 
-drawCal(); drawChoices(); drawTiers(); drawAddons(); update();
+drawVenues(); drawCal(); drawChoices(); drawTiers(); drawAddons(); update();
 })();
 </script>
 
