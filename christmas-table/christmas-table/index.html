@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Christmas Parties at Salakot &amp; Z Roofdeck · Z Hostel</title>
+<meta name="description" content="Reserve a Filipino Christmas salu-salo at Salakot or up on the Z Roofdeck, Z Hostel Poblacion. 10 to 80 guests, drinks included, flexible downpayment from ₱1,000.">
+<style>body{margin:0;background:#fbf6ee}</style>
+</head>
+<body>
+<!--
+  SALAKOT · CHRISTMAS TABLE RESERVATION — drop-in block for zhostel.com (WordPress)
+  How to use: paste this whole file into a "Custom HTML" block on a new page
+  (e.g. zhostel.com/christmas-table). Everything is scoped to #sx-root.
+  Edit prices, add-ons, payment details and the form endpoint in CONFIG below.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+#sx-root{--g:#1f3a2e;--g2:#2f5a45;--r:#a3412a;--gold:#c9973f;--cream:#fbf6ee;--paper:#fff;--ink:#22201d;--mute:#6d675f;--line:#e8dfd1;--soft:#f3ece0;
+  font-family:"DM Sans",system-ui,sans-serif;color:var(--ink);background:var(--cream);line-height:1.5;-webkit-font-smoothing:antialiased}
+#sx-root *{box-sizing:border-box}
+#sx-root h1,#sx-root h2,#sx-root h3{font-family:Fraunces,Georgia,serif;margin:0;line-height:1.15;color:var(--g)}
+#sx-root p{margin:0}
+#sx-root button{font-family:inherit}
+.sx-hero{background:radial-gradient(1200px 400px at 80% -10%,#2f5a45 0,transparent 60%),var(--g);color:#f6efe3;padding:64px 20px 72px;text-align:center;position:relative;overflow:hidden}
+#sx-root .sx-hero h1{color:#fff7ea;font-size:clamp(34px,6vw,58px);font-weight:600;max-width:820px;margin:10px auto 14px}
+.sx-hero p{max-width:620px;margin:0 auto;font-size:18px;color:#e6dccb}
+.sx-eyebrow{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.sx-pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:26px}
+.sx-pill{border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:7px 14px;font-size:14px;color:#f6efe3}
+.sx-lights{position:absolute;left:0;right:0;top:0;height:28px;display:flex;justify-content:space-around}
+.sx-lights i{width:9px;height:9px;border-radius:50%;margin-top:12px;background:var(--gold);box-shadow:0 0 12px var(--gold);opacity:.85}
+.sx-lights i:nth-child(3n){background:#e86b4f;box-shadow:0 0 12px #e86b4f}
+.sx-lights i:nth-child(4n){background:#8fd1a6;box-shadow:0 0 12px #8fd1a6}
+.sx-wrap{max-width:1160px;margin:0 auto;padding:36px 16px 80px;display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:28px;align-items:start}
+@media(max-width:920px){.sx-wrap{grid-template-columns:minmax(0,1fr)}}
+.sx-card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:26px 24px;margin-bottom:20px;min-width:0}
+@media(max-width:560px){.sx-card{padding:20px 14px}.sx-day{font-size:14px;border-radius:9px}.sx-day small{font-size:8.5px}}
+.sx-step{display:flex;gap:12px;align-items:baseline;margin-bottom:6px}
+.sx-num{flex:none;width:28px;height:28px;border-radius:50%;background:var(--g);color:#fff;font-weight:700;font-size:14px;display:grid;place-items:center;transform:translateY(-3px)}
+.sx-card h2{font-size:26px}
+.sx-sub{color:var(--mute);margin:2px 0 18px 40px;font-size:15px}
+@media(max-width:560px){.sx-sub{margin-left:0}}
+.sx-cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.sx-cal-head strong{font-family:Fraunces,serif;font-size:20px;color:var(--g)}
+.sx-nav{border:1px solid var(--line);background:#fff;border-radius:10px;width:38px;height:38px;cursor:pointer;font-size:18px;color:var(--g)}
+.sx-nav:disabled{opacity:.3;cursor:default}
+.sx-cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+.sx-dow{font-size:12px;color:var(--mute);text-align:center;font-weight:700;padding-bottom:2px}
+.sx-day{position:relative;aspect-ratio:1/0.9;border:1px solid var(--line);border-radius:12px;background:#fff;cursor:pointer;font-size:15px;font-weight:500;color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;transition:.15s}
+.sx-day small{font-size:10px;font-weight:700;letter-spacing:.02em;color:var(--r)}
+.sx-day:hover:not(:disabled){border-color:var(--g2);transform:translateY(-1px)}
+.sx-day:disabled{background:transparent;border-color:transparent;color:#c9c1b4;cursor:default}
+.sx-day.sx-on{background:var(--g);border-color:var(--g);color:#fff}
+.sx-day.sx-on small{color:var(--gold)}
+.sx-legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--mute);margin-top:12px}
+.sx-legend b{color:var(--r)}
+.sx-row{display:flex;gap:10px;flex-wrap:wrap}
+.sx-chip{border:1.5px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px;cursor:pointer;font-size:15px;color:var(--ink);text-align:left;transition:.15s}
+.sx-chip:hover{border-color:var(--g2)}
+.sx-chip.sx-on{border-color:var(--g);background:#eef4ef;box-shadow:inset 0 0 0 1px var(--g)}
+.sx-chip span{display:block;font-size:12.5px;color:var(--mute)}
+.sx-label{font-weight:700;font-size:14px;margin:18px 0 8px;color:var(--ink)}
+.sx-guests{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.sx-step-btn{width:44px;height:44px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font-size:22px;cursor:pointer;color:var(--g)}
+.sx-guest-n{font-family:Fraunces,serif;font-size:40px;font-weight:600;color:var(--g);min-width:64px;text-align:center}
+#sx-root input[type=range]{width:100%;accent-color:var(--g);height:28px}
+.sx-tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:700px){.sx-tiers{grid-template-columns:1fr}}
+.sx-tier{border:1.5px solid var(--line);border-radius:16px;padding:18px;cursor:pointer;background:#fff;text-align:left;transition:.15s;display:flex;flex-direction:column;gap:6px}
+.sx-tier:hover{border-color:var(--g2)}
+.sx-tier.sx-on{border-color:var(--g);background:#eef4ef;box-shadow:inset 0 0 0 1px var(--g)}
+.sx-tier h3{font-size:19px}
+.sx-tier .sx-price{font-weight:700;color:var(--r);font-size:16px}
+.sx-tier ul{margin:4px 0 0;padding-left:18px;font-size:13.5px;color:#4a453e}
+.sx-tag{align-self:flex-start;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;background:var(--gold);color:#fff;border-radius:6px;padding:2px 7px}
+.sx-addon{border-top:1px solid var(--line);padding:16px 0}
+.sx-addon:first-of-type{border-top:0;padding-top:4px}
+.sx-addon-h{display:flex;justify-content:space-between;gap:10px;align-items:baseline;margin-bottom:8px}
+.sx-addon-h strong{font-size:16px}
+.sx-addon-h em{font-style:normal;font-size:13px;color:var(--mute)}
+.sx-seg{display:flex;flex-wrap:wrap;gap:8px}
+.sx-seg button{border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;cursor:pointer;font-size:14px;color:var(--ink);text-align:left}
+.sx-seg button span{display:block;font-size:12px;color:var(--mute)}
+.sx-seg button.sx-on{border-color:var(--g);background:#eef4ef;box-shadow:inset 0 0 0 1px var(--g)}
+.sx-grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:600px){.sx-grid2{grid-template-columns:1fr}}
+.sx-field label{display:block;font-weight:700;font-size:13.5px;margin-bottom:6px}
+.sx-field input,.sx-field select,.sx-field textarea{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:11px 12px;font:inherit;font-size:15px;background:#fff;color:var(--ink)}
+.sx-field input:focus,.sx-field select:focus,.sx-field textarea:focus{outline:none;border-color:var(--g2)}
+.sx-field textarea{min-height:84px;resize:vertical}
+.sx-checks{display:flex;flex-wrap:wrap;gap:8px}
+.sx-checks label{border:1.5px solid var(--line);border-radius:999px;padding:7px 13px;font-size:14px;cursor:pointer;background:#fff;user-select:none}
+.sx-checks input{display:none}
+.sx-checks label:has(input:checked){border-color:var(--g);background:#eef4ef}
+/* summary */
+.sx-side{position:sticky;top:20px}
+@media(max-width:920px){.sx-side{position:static}}
+.sx-sum{background:var(--g);color:#f4ecdf;border-radius:18px;padding:22px}
+#sx-root .sx-sum h3{color:#fff7ea;font-size:20px;margin-bottom:4px}
+.sx-sum .sx-date{color:var(--gold);font-weight:700;font-size:14px}
+.sx-lines{margin:14px 0;border-top:1px solid rgba(255,255,255,.15)}
+.sx-line{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.12);font-size:14px}
+.sx-line span:last-child{white-space:nowrap;color:#fff}
+.sx-total{font-family:Fraunces,serif;font-size:30px;color:#fff;font-weight:600;line-height:1.1}
+.sx-ph{font-size:14px;color:#d9cfbf;margin-top:4px}
+.sx-note{font-size:12.5px;color:#cbbfae;margin-top:12px}
+.sx-perk{margin-top:10px;background:rgba(201,151,63,.18);border:1px solid rgba(201,151,63,.45);border-radius:10px;padding:9px 11px;font-size:13px;color:#f7e6c4}
+/* downpayment */
+.sx-dp{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end}
+.sx-dp-amt{font-family:Fraunces,serif;font-size:38px;color:var(--g);font-weight:600}
+.sx-dp-pct{font-size:14px;color:var(--mute)}
+.sx-meter{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:14px 0 6px}
+.sx-meter div{border-radius:10px;padding:10px;background:var(--soft);border:1.5px solid transparent;font-size:12.5px;color:var(--mute);transition:.2s}
+.sx-meter div b{display:block;font-size:13.5px;color:var(--ink)}
+.sx-meter div.sx-hit{background:#eef4ef;border-color:var(--g2);color:#3c5a4a}
+.sx-meter div.sx-cur{background:var(--g);color:#e6efe8;border-color:var(--g)}
+.sx-meter div.sx-cur b{color:#fff}
+@media(max-width:600px){.sx-meter{grid-template-columns:1fr 1fr}}
+.sx-level{background:var(--soft);border-radius:14px;padding:14px 16px;margin-top:10px}
+.sx-level strong{color:var(--g)}
+.sx-sched{font-size:13.5px;color:var(--mute);margin-top:12px}
+.sx-sched table{width:100%;border-collapse:collapse;margin-top:6px}
+.sx-sched td{padding:6px 4px;border-bottom:1px solid var(--line)}
+.sx-sched tr.sx-now td{color:var(--g);font-weight:700}
+.sx-pay{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px}
+@media(max-width:700px){.sx-pay{grid-template-columns:1fr}}
+.sx-paybox{border:1px dashed var(--gold);border-radius:12px;padding:12px;font-size:13.5px;background:#fffaf1}
+.sx-paybox b{display:block;color:var(--g);font-size:14.5px}
+.sx-drop{display:block;border:2px dashed var(--line);border-radius:14px;padding:18px;text-align:center;cursor:pointer;background:#fff;color:var(--mute);font-size:14px}
+.sx-drop.sx-has{border-color:var(--g2);color:var(--g);background:#eef4ef}
+.sx-cta{width:100%;border:0;border-radius:14px;background:var(--r);color:#fff;font-weight:700;font-size:17px;padding:16px;cursor:pointer;margin-top:16px}
+.sx-cta:hover{background:#8e3622}
+.sx-cta:disabled{opacity:.6;cursor:wait}
+.sx-ghost{background:transparent;border:1.5px solid rgba(255,255,255,.35);color:#fff;border-radius:12px;padding:10px;width:100%;margin-top:12px;cursor:pointer;font-weight:700}
+.sx-err{color:var(--r);font-size:13.5px;margin-top:8px;min-height:1em}
+.sx-done{text-align:center;padding:40px 20px}
+.sx-done h2{font-size:32px;margin-bottom:10px}
+.sx-ref{display:inline-block;font-family:Fraunces,serif;font-size:24px;color:var(--r);background:var(--soft);padding:6px 16px;border-radius:10px;margin:12px 0}
+.sx-mbar{display:none}
+@media(max-width:920px){.sx-mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--g);color:#fff;padding:10px 16px;gap:12px;align-items:center;justify-content:space-between;box-shadow:0 -6px 20px rgba(0,0,0,.18)}
+.sx-mbar b{font-family:Fraunces,serif;font-size:19px;display:block}.sx-mbar small{color:#d9cfbf;font-size:12px}
+.sx-mbar button{border:0;border-radius:10px;background:var(--r);color:#fff;font-weight:700;padding:11px 14px;font-size:14px}
+#sx-root{padding-bottom:64px}}
+.sx-venues{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:760px){.sx-venues{grid-template-columns:1fr}}
+.sx-venue{border:1.5px solid var(--line);border-radius:16px;padding:0;cursor:pointer;background:#fff;text-align:left;overflow:hidden;transition:.15s;display:flex;flex-direction:column}
+.sx-venue:hover{border-color:var(--g2)}
+.sx-venue.sx-on{border-color:var(--g);box-shadow:inset 0 0 0 1px var(--g)}
+.sx-venue .sx-vart{height:78px;position:relative;background:var(--g)}
+.sx-venue .sx-vart.sx-street{background:linear-gradient(180deg,#2f5a45,#1f3a2e)}
+.sx-venue .sx-vart.sx-roof{background:linear-gradient(180deg,#1b2440 0,#3b3a63 60%,#a3412a 140%)}
+.sx-venue .sx-vart.sx-both{background:linear-gradient(90deg,#1f3a2e 50%,#2b2d50 50%)}
+.sx-venue .sx-vart i{position:absolute;width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--gold)}
+.sx-venue .sx-vart b{position:absolute;left:14px;bottom:10px;color:#fff;font-family:Fraunces,serif;font-size:19px;font-weight:600}
+.sx-venue .sx-vbody{padding:12px 14px 14px;font-size:13.5px;color:#4a453e}
+.sx-venue .sx-vbody strong{display:block;color:var(--ink);font-size:14px;margin-bottom:3px}
+.sx-venue .sx-vbody span{display:block;color:var(--mute);font-size:12.5px;margin-top:6px}
+.sx-hide{display:none!important}
+.sx-faq details{border-top:1px solid var(--line);padding:12px 0}
+.sx-faq summary{cursor:pointer;font-weight:700}
+.sx-faq p{color:#4a453e;font-size:14.5px;margin-top:6px}
+</style>
+
+<div id="sx-root">
+  <header class="sx-hero">
+    <div class="sx-lights" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="sx-eyebrow">Z Hostel · Poblacion, Makati</div>
+    <h1>Save a seat at our Christmas table</h1>
+    <p>A Filipino salu-salo for your team, barkada or family, at street level in Salakot or up on the Z Roofdeck. Pick your spot and date, shape the night your way, and hold it with as little as ₱1,000.</p>
+    <div class="sx-pills"><span class="sx-pill">Salakot or the Roofdeck</span><span class="sx-pill">10 to 80 guests</span><span class="sx-pill">Family-style Filipino dinner</span><span class="sx-pill">Drinks included</span><span class="sx-pill">Flexible downpayment</span></div>
+  </header>
+
+  <div class="sx-wrap" id="sx-form">
+    <main>
+      <!-- 0 VENUE -->
+      <section class="sx-card">
+        <div class="sx-step"><span class="sx-num">1</span><h2>Pick your spot</h2></div>
+        <p class="sx-sub">Two Christmas settings under one roof. Not sure? Choose either; we'll talk it through with you.</p>
+        <div class="sx-venues" id="sx-venues"></div>
+      </section>
+
+      <!-- 1 DATE -->
+      <section class="sx-card">
+        <div class="sx-step"><span class="sx-num">2</span><h2>Choose your date</h2></div>
+        <p class="sx-sub">Fridays and Saturdays go first. Not sure yet? Pick your favourite and tell us a backup below.</p>
+        <div class="sx-cal-head"><button class="sx-nav" id="sx-prev" aria-label="Previous month">‹</button><strong id="sx-month"></strong><button class="sx-nav" id="sx-next" aria-label="Next month">›</button></div>
+        <div class="sx-cal" id="sx-cal"></div>
+        <div class="sx-legend"><span><b>Popular</b> = Fri &amp; Sat, books fast</span><span>Closed Dec 24, 25 &amp; 31 for Noche Buena with family</span></div>
+        <div class="sx-label">Time of your party</div>
+        <div class="sx-row" id="sx-slot"></div>
+      </section>
+
+      <!-- 2 GROUP -->
+      <section class="sx-card">
+        <div class="sx-step"><span class="sx-num">3</span><h2>Who's coming?</h2></div>
+        <p class="sx-sub">An estimate is fine. You can change the headcount up to 5 days before.</p>
+        <div class="sx-guests">
+          <button class="sx-step-btn" id="sx-minus" aria-label="Fewer guests">−</button>
+          <div class="sx-guest-n" id="sx-gn">25</div>
+          <button class="sx-step-btn" id="sx-plus" aria-label="More guests">+</button>
+          <div style="flex:1;min-width:180px"><input type="range" id="sx-gr" min="10" max="60" value="25" aria-label="Number of guests"></div>
+        </div>
+        <div class="sx-label">What kind of gathering?</div>
+        <div class="sx-row" id="sx-occ"></div>
+        <div class="sx-label">How would you like the space?</div>
+        <div class="sx-row" id="sx-space"></div>
+      </section>
+
+      <!-- 3 MENU -->
+      <section class="sx-card">
+        <div class="sx-step"><span class="sx-num">4</span><h2>Pick your menu</h2></div>
+        <p class="sx-sub">Prices are per guest and shown as ranges. We'll firm them up with you once we know your menu and date.</p>
+        <div class="sx-tiers" id="sx-tiers"></div>
+      </section>
+
+      <!-- 4 ADD-ONS -->
+      <section class="sx-card">
+        <div class="sx-step"><span class="sx-num">5</span><h2>Make it yours</h2></div>
+        <p class="sx-sub">Every extra has levels. Choose what fits your budget, or leave it at "None" and decide later.</p>
+        <div id="sx-addons"></div>
+      </section>
+
+      <!-- 5 ABOUT YOU -->
+      <section class="sx-card">
+        <div class="sx-step"><span class="sx-num">6</span><h2>A little about you</h2></div>
+        <p class="sx-sub">So we can plan the night around you. Only name, mobile and email are required.</p>
+        <div class="sx-grid2">
+          <div class="sx-field"><label for="sx-name">Your name *</label><input id="sx-name" autocomplete="name"></div>
+          <div class="sx-field"><label for="sx-org">Company or group name</label><input id="sx-org" autocomplete="organization"></div>
+          <div class="sx-field"><label for="sx-mobile">Mobile *</label><input id="sx-mobile" type="tel" placeholder="09XX XXX XXXX" autocomplete="tel"></div>
+          <div class="sx-field"><label for="sx-email">Email *</label><input id="sx-email" type="email" autocomplete="email"></div>
+          <div class="sx-field"><label for="sx-contact">Best way to reach you</label><select id="sx-contact"><option>Viber</option><option>WhatsApp</option><option>Messenger</option><option>Email</option><option>Call / SMS</option></select></div>
+          <div class="sx-field"><label for="sx-alt">Backup date (optional)</label><input id="sx-alt" type="date" min="2026-11-20" max="2026-12-30"></div>
+          <div class="sx-field"><label for="sx-budget">Comfortable budget per guest</label><select id="sx-budget"><option value="">Choose one</option><option>Under ₱800</option><option>₱800–1,000</option><option>₱1,000–1,500</option><option>₱1,500–2,000</option><option>Above ₱2,000</option></select></div>
+          <div class="sx-field"><label for="sx-heard">How did you hear about us?</label><select id="sx-heard"><option value="">Choose one</option><option>Facebook</option><option>Instagram</option><option>TikTok</option><option>Stayed at Z Hostel</option><option>Friend or colleague</option><option>Google</option><option>Walked by</option><option>Other</option></select></div>
+        </div>
+        <div class="sx-label">What matters most to your group?</div>
+        <div class="sx-checks" id="sx-matters"></div>
+        <div class="sx-field" style="margin-top:16px"><label for="sx-notes">Anything else? Dietary needs, program, surprises</label><textarea id="sx-notes" placeholder="e.g. 3 vegetarians, raffle at 8pm, the boss loves lechon"></textarea></div>
+      </section>
+
+      <!-- 6 RESERVE -->
+      <section class="sx-card" id="sx-reserve">
+        <div class="sx-step"><span class="sx-num">7</span><h2>Hold your date</h2></div>
+        <p class="sx-sub">Start small or lock it in. The more you put down, the more firmly your date and price are held. Everything you pay is credited to your bill.</p>
+        <div class="sx-dp">
+          <div><div class="sx-dp-amt" id="sx-dpamt">₱1,000</div><div class="sx-dp-pct" id="sx-dppct"></div></div>
+        </div>
+        <input type="range" id="sx-dpr" min="1000" max="10000" step="500" value="1000" aria-label="Downpayment amount">
+        <div class="sx-meter" id="sx-meter"></div>
+        <div class="sx-level" id="sx-level"></div>
+        <div class="sx-sched" id="sx-sched"></div>
+
+        <div class="sx-label" style="margin-top:22px">How would you like to pay?</div>
+        <div class="sx-row" id="sx-paymode"></div>
+        <div id="sx-paynow">
+          <div class="sx-pay" id="sx-paydetails"></div>
+          <div class="sx-grid2" style="margin-top:14px">
+            <div class="sx-field"><label for="sx-refno">Reference number</label><input id="sx-refno" placeholder="From your bank or e-wallet receipt"></div>
+            <div class="sx-field"><label for="sx-paidamt">Amount sent</label><input id="sx-paidamt" type="number" min="0" step="1" placeholder="₱"></div>
+          </div>
+          <div class="sx-label">Proof of payment</div>
+          <label class="sx-drop" id="sx-drop"><input type="file" id="sx-file" accept="image/*,application/pdf" hidden><span id="sx-droptxt">Tap to upload a screenshot or PDF (max 5 MB)</span></label>
+        </div>
+        <label style="display:flex;gap:10px;align-items:flex-start;margin-top:16px;font-size:14px;color:#4a453e"><input type="checkbox" id="sx-agree" style="margin-top:4px;accent-color:#1f3a2e"> I understand this is a request. Z Hostel will confirm my venue, date, final menu and price within 24 hours, and my downpayment is credited to the final bill.</label>
+        <div class="sx-err" id="sx-err" role="alert"></div>
+        <button class="sx-cta" id="sx-submit">Send my Christmas table request</button>
+      </section>
+
+      <section class="sx-card sx-faq">
+        <h2 style="font-size:22px;margin-bottom:6px">Good to know</h2>
+        <details><summary>Why are prices shown as ranges?</summary><p>Your final price depends on the menu you settle on, the date and your headcount. We quote within the range you see, and a 50% downpayment locks it.</p></details>
+        <details><summary>Can I start with just ₱1,000?</summary><p>Yes, if your date is 45 days away or more. It pencils your date for 7 days while we plan with you. As your date gets closer, a bigger downpayment is needed to keep it.</p></details>
+        <details><summary>What if our plans change?</summary><p>You can move your date once, free of charge, as long as the new date is open. Your downpayment carries over and is always credited to your bill.</p></details>
+        <details><summary>When is the final headcount due?</summary><p>5 days before your party. We bill the confirmed headcount.</p></details>
+      </section>
+    </main>
+
+    <!-- SUMMARY -->
+    <aside class="sx-side">
+      <div class="sx-sum">
+        <div class="sx-date" id="sx-sdate">Pick a date</div>
+        <h3>Your Christmas table</h3><div id="sx-svenue" style="font-size:13.5px;color:#d9cfbf;margin-top:2px"></div>
+        <div class="sx-lines" id="sx-lines"></div>
+        <div style="font-size:13px;color:#cbbfae">Estimated total</div>
+        <div class="sx-total" id="sx-total">—</div>
+        <div class="sx-ph" id="sx-ph"></div>
+        <div class="sx-perk" id="sx-perks"></div>
+        <p class="sx-note">Estimate only, VAT included. Final quote is sent after we confirm your menu and date.</p>
+        <button class="sx-ghost" id="sx-gores">Hold this date →</button>
+      </div>
+    </aside>
+  </div>
+
+  <div class="sx-mbar" id="sx-mbar"><div><small id="sx-mdate">Estimated total</small><b id="sx-mtotal">—</b></div><button type="button" id="sx-mgo">Hold my date</button></div>
+  <div class="sx-wrap sx-hide" id="sx-thanks" style="grid-template-columns:1fr;max-width:720px">
+    <section class="sx-card sx-done">
+      <div class="sx-eyebrow" style="color:var(--r)">Request received</div>
+      <h2>Salamat! Your Christmas party is pencilled in.</h2>
+      <p>Your reference number</p>
+      <div class="sx-ref" id="sx-refout"></div>
+      <p id="sx-thanksmsg" style="color:#4a453e"></p>
+      <p style="color:var(--mute);font-size:14px;margin-top:14px">Questions? Message us on Facebook or Instagram with your reference number.</p>
+    </section>
+  </div>
+</div>
+
+<script>
+(function(){
+/* ======================= CONFIG — edit freely ======================= */
+var CONFIG = {
+  // Paste your Google Apps Script web-app URL here (see salakot-inquiries.gs)
+  endpoint: "",
+  year: 2026,
+  firstDate: "2026-11-20", lastDate: "2026-12-30",
+  closed: ["2026-12-24","2026-12-25","2026-12-31"],
+  popularDays: [5,6],                      // Fri, Sat
+  minGuests: 10, maxGuests: 80,
+  // Venues: each has its own guest range, time slots and space options
+  venues: [
+    {id:"salakot", name:"Salakot", line:"Streetside restaurant & bar", desc:"Warm, cosy and right on Don Pedro St. Great for sit-down dinners and speeches.", meta:"10–50 guests · lunch or dinner", min:10, max:50,
+     slots:[{id:"lunch",label:"Lunch",note:"11:30 AM – 2:30 PM"},{id:"dinner",label:"Dinner",note:"6:00 – 9:00 PM"},{id:"late",label:"Late dinner",note:"7:30 – 10:30 PM"}],
+     spaces:[{id:"table",label:"Reserved tables",note:"Part of the restaurant, 10+ guests",min:[0,0]},
+             {id:"section",label:"Private section",note:"Your own corner, 20+ guests",min:[0,0]},
+             {id:"whole",label:"Whole restaurant",note:"Exclusive, 30+ guests · ₱30K–50K minimum",min:[30000,50000]}]},
+    {id:"roof", name:"Z Roofdeck", line:"Open-air rooftop bar", desc:"City lights, cool December air and room to dance. Best for parties that go late.", meta:"20–80 guests · evenings", min:20, max:80,
+     slots:[{id:"sunset",label:"Sunset",note:"5:00 – 8:00 PM"},{id:"dinner",label:"Dinner",note:"6:30 – 9:30 PM"},{id:"late",label:"Late party",note:"8:00 – 11:00 PM"}],
+     spaces:[{id:"area",label:"Reserved area",note:"Part of the Roofdeck, 20+ guests",min:[0,0]},
+             {id:"half",label:"Half Roofdeck",note:"Your own side, 30+ guests · ₱40K–60K minimum",min:[40000,60000]},
+             {id:"whole",label:"Whole Roofdeck",note:"Exclusive, 50+ guests · ₱70K–100K minimum",min:[70000,100000]}],
+     note:"Rain plan: if the weather turns, we move your party under cover or down to Salakot."},
+    {id:"both", name:"Both", line:"Dinner downstairs, party upstairs", desc:"Sit-down dinner at Salakot, then up to the Roofdeck for drinks and dancing.", meta:"20–50 guests · dinner into late", min:20, max:50,
+     slots:[{id:"dinner",label:"Dinner + after-party",note:"6:00 – 11:00 PM"},{id:"early",label:"Early dinner + party",note:"5:30 – 10:00 PM"}],
+     spaces:[{id:"section",label:"Salakot section + Roofdeck area",note:"20+ guests · roof transfer ₱8K–15K",min:[0,0],fee:[8000,15000]},
+             {id:"whole",label:"Whole Salakot + Roofdeck area",note:"30+ guests · ₱45K–70K minimum",min:[45000,70000]}]}
+  ],
+  occasions: ["Office party","Barkada","Family","Reunion","Other"],
+  // per-guest ranges [low, high]
+  tiers: [
+    {id:"salo", name:"Salo-Salo", range:[900,1100], tag:"Most booked", items:["Starter platter, 3 Filipino mains, unlimited rice","Christmas dessert","Bottomless iced tea","2 drinks each: beer, wine or Christmas cocktail"]},
+    {id:"plus", name:"Salo-Salo Plus", range:[1300,1500], items:["Everything in Salo-Salo","2 hours free-flow local beer","House cocktail on the side"]},
+    {id:"noche", name:"Noche Buena Feast", range:[1700,2000], items:["Everything in Plus","Lechon belly and a 4th main","Queso de bola and ham station"]}
+  ],
+  // add-ons: each option has [low, high]; per:"guest" multiplies by headcount; perk:true = discount, no peso amount
+  addons: [
+    {id:"music", name:"Music & entertainment", hint:"Sound system and mic are always included", options:[
+      {label:"Our playlist", range:[0,0]}, {label:"Acoustic duo", note:"2 sets", range:[6000,10000]},
+      {label:"DJ", note:"3 hours", range:[8000,15000]}, {label:"DJ + party lights", note:"3 hours", range:[15000,25000]}]},
+    {id:"styling", name:"Table styling & arrangements", hint:"Classic Christmas tables are included", options:[
+      {label:"Classic", range:[0,0]}, {label:"Parol & capiz", note:"Filipino Christmas styling", range:[3000,6000]},
+      {label:"Full theme", note:"Backdrop, signage, your colours", range:[8000,15000]}]},
+    {id:"flowers", name:"Flowers", options:[
+      {label:"None", range:[0,0]}, {label:"Centerpieces", range:[2500,5000]},
+      {label:"Centerpieces + entrance", range:[6000,12000]}]},
+    {id:"lechon", name:"Lechon", options:[
+      {label:"None", range:[0,0]}, {label:"Lechon belly", note:"Good for 15–20", range:[3500,5000]},
+      {label:"Whole lechon", note:"Good for 40–50", range:[9000,14000]}]},
+    {id:"drinks", name:"More drinks", options:[
+      {label:"As included", range:[0,0]}, {label:"+1 hour free-flow", per:"guest", range:[200,300]},
+      {label:"Beer buckets", note:"1 per 5 guests", per:"guest", range:[130,160]}, {label:"Open bar, 3 hours", per:"guest", range:[600,850]}]},
+    {id:"host", name:"Host, games & raffle", options:[
+      {label:"We'll run it", range:[0,0]}, {label:"Games kit", note:"Props and prizes table", range:[2000,4000]},
+      {label:"Party host", note:"Games and raffle emcee", range:[5000,9000]}]},
+    {id:"photo", name:"Photos", options:[
+      {label:"None", range:[0,0]}, {label:"Photo corner", note:"Christmas backdrop", range:[3000,6000]},
+      {label:"Photographer", note:"3 hours, edited photos", range:[6000,12000]}]},
+    {id:"gifts", name:"Giveaways", options:[
+      {label:"None", range:[0,0]}, {label:"Sweet treat", note:"Polvoron or otap", per:"guest", range:[120,200]},
+      {label:"Local gift box", note:"Filipino-made goodies", per:"guest", range:[300,550]}]},
+    {id:"rooms", name:"Stay over at Z Hostel", hint:"Party-night room discount", options:[
+      {label:"No rooms", perk:0}, {label:"1–2 rooms", note:"10% off", perk:10},
+      {label:"3–5 rooms", note:"15% off", perk:15}, {label:"6+ rooms", note:"20% off", perk:20}]}
+  ],
+  matters: ["Great food","Drinks","Budget","Private space","Music & dancing","Games & raffle","Photos","Near the office","Overnight stay"],
+  // Downpayment: commitment levels by % of the estimate (mid-point)
+  levels: [
+    {min:0, name:"Pencil", text:"Your date is pencilled for 7 days while we plan the details with you."},
+    {min:10, name:"Hold", text:"Your date is held until 21 days before your party. Other groups can only waitlist."},
+    {min:25, name:"Priority", text:"Your date is held all the way to the party, and add-on prices are locked."},
+    {min:50, name:"Secured", text:"Your date is fully secured and your price is locked at the low end of today's range. Welcome cocktail on us for every guest."}
+  ],
+  // Minimum downpayment as the date gets closer (days before party)
+  schedule: [
+    {days:45, pct:0, label:"45+ days away", req:"₱1,000"},
+    {days:30, pct:10, label:"30–44 days", req:"10%"},
+    {days:15, pct:25, label:"15–29 days", req:"25%"},
+    {days:0, pct:50, label:"Under 15 days", req:"50%"}
+  ],
+  minDown: 1000,
+  payment: [
+    {name:"Bank transfer", lines:["[Bank name]","[Account name]","[Account number]"]},
+    {name:"GCash", lines:["[GCash number]","[Account name]"]},
+    {name:"Maya", lines:["[Maya number]","[Account name]"]}
+  ],
+  earlyBird: {until:"2026-11-15", text:"Early bird: request with a downpayment by Nov 15 and every guest gets a welcome cocktail."}
+};
+/* ==================================================================== */
+
+var $ = function(id){return document.getElementById(id)};
+var peso = function(n){return "₱"+Math.round(n).toLocaleString("en-PH")};
+var range = function(a,b){return a===b?peso(a):peso(a)+"–"+peso(b).slice(1)};
+var DOW=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"], MON=["January","February","March","April","May","June","July","August","September","October","November","December"];
+var today=new Date(); today.setHours(0,0,0,0);
+var iso=function(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
+var parse=function(s){var p=s.split("-");return new Date(+p[0],p[1]-1,+p[2])};
+var first=parse(CONFIG.firstDate), last=parse(CONFIG.lastDate);
+if(first<today){first=new Date(today);first.setDate(first.getDate()+3)}
+
+var S={venue:"salakot", date:null, slot:"dinner", guests:25, occ:"Office party", space:"section", tier:"salo", add:{}, matters:[], down:1000, paymode:"now", file:null, viewMonth:Math.max(11,first.getMonth())};
+CONFIG.addons.forEach(function(a){S.add[a.id]=0});
+
+/* ---------- calendar ---------- */
+function drawCal(){
+  var y=CONFIG.year, m=S.viewMonth, cal=$("sx-cal"); cal.innerHTML="";
+  $("sx-month").textContent=MON[m]+" "+y;
+  $("sx-prev").disabled = m<=first.getMonth() && y===first.getFullYear();
+  $("sx-next").disabled = m>=last.getMonth();
+  DOW.forEach(function(d){var e=document.createElement("div");e.className="sx-dow";e.textContent=d;cal.appendChild(e)});
+  var start=new Date(y,m,1).getDay(), n=new Date(y,m+1,0).getDate();
+  for(var i=0;i<start;i++){cal.appendChild(document.createElement("div"))}
+  for(var d=1;d<=n;d++){
+    var dt=new Date(y,m,d), s=iso(dt), b=document.createElement("button");
+    b.type="button"; b.className="sx-day"; b.innerHTML=d;
+    var off = dt<first || dt>last || CONFIG.closed.indexOf(s)>=0;
+    if(off){b.disabled=true; if(CONFIG.closed.indexOf(s)>=0) b.title="Closed";}
+    else if(CONFIG.popularDays.indexOf(dt.getDay())>=0){b.innerHTML=d+"<small>Popular</small>"}
+    if(S.date===s) b.classList.add("sx-on");
+    b.setAttribute("aria-label",DOW[dt.getDay()]+" "+MON[m]+" "+d+(off?" unavailable":""));
+    (function(s){b.onclick=function(){S.date=s;drawCal();update()}})(s);
+    cal.appendChild(b);
+  }
+}
+$("sx-prev").onclick=function(){S.viewMonth--;drawCal()};
+$("sx-next").onclick=function(){S.viewMonth++;drawCal()};
+
+/* ---------- simple choice rows ---------- */
+function chips(el,list,key,getId,render){
+  var box=$(el); box.innerHTML="";
+  list.forEach(function(it){
+    var b=document.createElement("button"); b.type="button"; b.className="sx-chip"+(S[key]===getId(it)?" sx-on":"");
+    b.innerHTML=render(it); b.onclick=function(){S[key]=getId(it);chips(el,list,key,getId,render);update()};
+    box.appendChild(b);
+  });
+}
+function V(){return CONFIG.venues.filter(function(v){return v.id===S.venue})[0]}
+function drawVenues(){
+  var box=$("sx-venues"); box.innerHTML="";
+  CONFIG.venues.forEach(function(v){
+    var b=document.createElement("button"); b.type="button"; b.className="sx-venue"+(S.venue===v.id?" sx-on":"");
+    var dots=""; for(var i=0;i<7;i++){dots+='<i style="left:'+(10+i*13)+'%;top:'+(v.id==="roof"?14+((i*37)%30):10+(i%2)*6)+'px"></i>'}
+    b.innerHTML='<div class="sx-vart sx-'+(v.id==="salakot"?"street":v.id)+'">'+dots+'<b>'+v.name+'</b></div><div class="sx-vbody"><strong>'+v.line+'</strong>'+v.desc+'<span>'+v.meta+'</span></div>';
+    b.onclick=function(){
+      S.venue=v.id; var vv=V();
+      if(!vv.slots.some(function(s){return s.id===S.slot})) S.slot=vv.slots[Math.min(1,vv.slots.length-1)].id;
+      if(!vv.spaces.some(function(s){return s.id===S.space})) S.space=vv.spaces[0].id;
+      $("sx-gr").min=vv.min; $("sx-gr").max=vv.max; setGuests(S.guests);
+      drawVenues(); drawChoices(); update();
+    };
+    box.appendChild(b);
+  });
+  var n=V().note, el=$("sx-vnote"); if(!el){el=document.createElement("p");el.id="sx-vnote";el.style.cssText="font-size:13.5px;color:#6d675f;margin-top:12px";box.parentNode.appendChild(el)}
+  el.textContent=n||""; el.classList.toggle("sx-hide",!n);
+}
+function drawChoices(){
+  chips("sx-slot",V().slots,"slot",function(x){return x.id},function(x){return x.label+"<span>"+x.note+"</span>"});
+  chips("sx-occ",CONFIG.occasions,"occ",function(x){return x},function(x){return x});
+  chips("sx-space",V().spaces,"space",function(x){return x.id},function(x){return x.label+"<span>"+x.note+"</span>"});
+  chips("sx-paymode",[{id:"now",l:"Pay now",n:"Bank or e-wallet, upload proof"},{id:"later",l:"Send me instructions",n:"We'll message you first"}],"paymode",function(x){return x.id},function(x){return x.l+"<span>"+x.n+"</span>"});
+}
+
+/* ---------- tiers ---------- */
+function drawTiers(){
+  var box=$("sx-tiers"); box.innerHTML="";
+  CONFIG.tiers.forEach(function(t){
+    var b=document.createElement("button"); b.type="button"; b.className="sx-tier"+(S.tier===t.id?" sx-on":"");
+    b.innerHTML=(t.tag?'<span class="sx-tag">'+t.tag+'</span>':'')+"<h3>"+t.name+"</h3><div class='sx-price'>"+range(t.range[0],t.range[1])+" <span style='font-weight:400;color:#6d675f;font-size:13px'>per guest</span></div><ul>"+t.items.map(function(i){return"<li>"+i+"</li>"}).join("")+"</ul>";
+    b.onclick=function(){S.tier=t.id;drawTiers();update()};
+    box.appendChild(b);
+  });
+}
+
+/* ---------- add-ons ---------- */
+function optPrice(o){
+  if(o.perk!==undefined) return o.perk?o.note:"";
+  if(!o.range[1]) return "Included";
+  return range(o.range[0],o.range[1])+(o.per==="guest"?"/guest":"");
+}
+function drawAddons(){
+  var box=$("sx-addons"); box.innerHTML="";
+  CONFIG.addons.forEach(function(a){
+    var w=document.createElement("div"); w.className="sx-addon";
+    w.innerHTML='<div class="sx-addon-h"><strong>'+a.name+'</strong>'+(a.hint?'<em>'+a.hint+'</em>':'')+'</div>';
+    var seg=document.createElement("div"); seg.className="sx-seg";
+    a.options.forEach(function(o,i){
+      var b=document.createElement("button"); b.type="button"; if(S.add[a.id]===i) b.className="sx-on";
+      var p=optPrice(o); b.innerHTML=o.label+(p||o.note?"<span>"+[o.perk===undefined?o.note:null,p].filter(Boolean).join(" · ")+"</span>":"");
+      b.onclick=function(){S.add[a.id]=i;drawAddons();update()};
+      seg.appendChild(b);
+    });
+    w.appendChild(seg); box.appendChild(w);
+  });
+}
+
+/* ---------- survey checks ---------- */
+(function(){var box=$("sx-matters");CONFIG.matters.forEach(function(m){var l=document.createElement("label");l.innerHTML='<input type="checkbox" value="'+m+'">'+m;box.appendChild(l)})})();
+
+/* ---------- guests ---------- */
+function setGuests(n){var v=V();S.guests=Math.max(v.min,Math.min(v.max,n));$("sx-gn").textContent=S.guests;$("sx-gr").value=S.guests;update()}
+$("sx-minus").onclick=function(){setGuests(S.guests-1)};
+$("sx-plus").onclick=function(){setGuests(S.guests+1)};
+$("sx-gr").oninput=function(){setGuests(+this.value)};
+
+/* ---------- estimate ---------- */
+function estimate(){
+  var g=S.guests, t=CONFIG.tiers.filter(function(x){return x.id===S.tier})[0];
+  var lines=[], lo=t.range[0]*g, hi=t.range[1]*g;
+  lines.push([t.name+" × "+g, range(lo,hi)]);
+  CONFIG.addons.forEach(function(a){
+    var o=a.options[S.add[a.id]]; if(!o||o.perk!==undefined||!o.range[1]) return;
+    var m=o.per==="guest"?g:1, l=o.range[0]*m, h=o.range[1]*m;
+    lo+=l; hi+=h; lines.push([a.name.split(" &")[0].split(",")[0]+": "+o.label, range(l,h)]);
+  });
+  var sp=V().spaces.filter(function(x){return x.id===S.space})[0];
+  if(sp.fee){ lo+=sp.fee[0]; hi+=sp.fee[1]; lines.push(["Roofdeck after-party", range(sp.fee[0],sp.fee[1])]); }
+  if(sp.min[1]){ if(lo<sp.min[0]||hi<sp.min[1]) lines.push([sp.label+" minimum", range(sp.min[0],sp.min[1])]); lo=Math.max(lo,sp.min[0]); hi=Math.max(hi,sp.min[1]); }
+  return {lo:lo, hi:hi, mid:(lo+hi)/2, lines:lines};
+}
+function daysOut(){ if(!S.date) return null; return Math.round((parse(S.date)-today)/864e5) }
+function requiredPct(){ var d=daysOut(); if(d===null) return 0; for(var i=0;i<CONFIG.schedule.length;i++){ if(d>=CONFIG.schedule[i].days) return CONFIG.schedule[i].pct } return 50 }
+
+function update(){
+  var e=estimate(), g=S.guests;
+  // summary
+  if(S.date){var dt=parse(S.date), sl=V().slots.filter(function(x){return x.id===S.slot})[0];
+    $("sx-sdate").textContent=DOW[dt.getDay()]+", "+MON[dt.getMonth()].slice(0,3)+" "+dt.getDate()+" · "+sl.label+" · "+daysOut()+" days away";}
+  else $("sx-sdate").textContent="Pick a date";
+  $("sx-svenue").textContent=V().name+" · "+V().spaces.filter(function(x){return x.id===S.space})[0].label;
+  $("sx-lines").innerHTML=e.lines.map(function(l){return'<div class="sx-line"><span>'+l[0]+'</span><span>'+l[1]+'</span></div>'}).join("");
+  $("sx-total").textContent=range(e.lo,e.hi); $("sx-mtotal").textContent=range(e.lo,e.hi); $("sx-mdate").textContent=S.date?$("sx-sdate").textContent.split(" · ")[0]+" · "+g+" guests":"Estimated total · "+g+" guests";
+  $("sx-ph").textContent="About "+range(e.lo/g,e.hi/g)+" per guest";
+  var perks=[], ro=CONFIG.addons.filter(function(a){return a.id==="rooms"})[0];
+  if(ro){var o=ro.options[S.add.rooms]; if(o.perk) perks.push("Z Hostel rooms: "+o.perk+"% off ("+o.label+")");}
+  if(iso(today)<=CONFIG.earlyBird.until) perks.push(CONFIG.earlyBird.text);
+  $("sx-perks").innerHTML=perks.join("<br>"); $("sx-perks").classList.toggle("sx-hide",!perks.length);
+  // downpayment
+  var maxD=Math.max(CONFIG.minDown, Math.round(e.mid*0.5/500)*500);
+  var reqPct=requiredPct(), minD=Math.max(CONFIG.minDown, Math.ceil(e.mid*reqPct/100/500)*500);
+  minD=Math.min(minD,maxD);
+  var r=$("sx-dpr"); r.min=minD; r.max=maxD;
+  if(S.down<minD) S.down=minD; if(S.down>maxD) S.down=maxD; r.value=S.down;
+  var pct=S.down/e.mid*100;
+  $("sx-dpamt").textContent=peso(S.down);
+  $("sx-dppct").textContent=(S.down>=maxD?"50%":Math.round(pct)+"%")+" of your estimated "+peso(e.mid)+(reqPct?" · minimum for your date: "+reqPct+"% ("+peso(minD)+")":" · minimum for your date: "+peso(CONFIG.minDown));
+  var cur=0; CONFIG.levels.forEach(function(l,i){ if(pct>=l.min-0.5 || (l.min===50 && S.down>=maxD)) cur=i });
+  $("sx-meter").innerHTML=CONFIG.levels.map(function(l,i){return'<div class="'+(i===cur?"sx-cur":i<cur?"sx-hit":"")+'"><b>'+l.name+'</b>'+(l.min?l.min+"%+":"From ₱1,000")+'</div>'}).join("");
+  var lv=CONFIG.levels[cur];
+  $("sx-level").innerHTML="<strong>"+lv.name+".</strong> "+lv.text;
+  var d=daysOut();
+  $("sx-sched").innerHTML="<b style='color:#22201d'>Downpayment grows as your date gets closer</b>"+(d!==null?" · your date is "+d+" days away":"")+
+    "<table>"+CONFIG.schedule.map(function(s,i){var hi=i?CONFIG.schedule[i-1].days:9999;var now=d!==null&&d>=s.days&&d<hi;return"<tr class='"+(now?"sx-now":"")+"'><td>"+s.label+"</td><td style='text-align:right'>"+(s.pct?s.req+" of estimate":s.req+" to pencil")+(now?" ← you":"")+"</td></tr>"}).join("")+"</table>";
+  $("sx-paidamt").placeholder=peso(S.down);
+  $("sx-paynow").classList.toggle("sx-hide",S.paymode!=="now");
+  return e;
+}
+$("sx-dpr").oninput=function(){S.down=+this.value;update()};
+$("sx-mgo").onclick=function(){$("sx-reserve").scrollIntoView({behavior:"smooth"})};
+$("sx-gores").onclick=function(){$("sx-reserve").scrollIntoView({behavior:"smooth"})};
+
+/* ---------- payment details ---------- */
+$("sx-paydetails").innerHTML=CONFIG.payment.map(function(p){return'<div class="sx-paybox"><b>'+p.name+'</b>'+p.lines.join("<br>")+'</div>'}).join("");
+$("sx-file").onchange=function(){
+  var f=this.files[0]; if(!f) return;
+  if(f.size>5*1024*1024){$("sx-err").textContent="That file is over 5 MB. Please upload a smaller screenshot.";this.value="";return}
+  var rd=new FileReader(); rd.onload=function(){S.file={name:f.name,type:f.type,data:String(rd.result).split(",")[1]};$("sx-droptxt").textContent="✓ "+f.name;$("sx-drop").classList.add("sx-has")}; rd.readAsDataURL(f);
+};
+
+/* ---------- submit ---------- */
+function refCode(){var c="ABCDEFGHJKLMNPQRSTUVWXYZ23456789",s="SX-";for(var i=0;i<5;i++)s+=c[Math.floor(Math.random()*c.length)];return s}
+$("sx-submit").onclick=function(){
+  var err=$("sx-err"); err.textContent="";
+  var name=$("sx-name").value.trim(), mob=$("sx-mobile").value.trim(), em=$("sx-email").value.trim();
+  if(!S.date){err.textContent="Please pick a date in step 1.";$("sx-cal").scrollIntoView({behavior:"smooth",block:"center"});return}
+  if(!name||!mob||!em){err.textContent="Please add your name, mobile and email in step 5.";$("sx-name").focus();return}
+  if(!/^\S+@\S+\.\S+$/.test(em)){err.textContent="That email doesn't look right.";$("sx-email").focus();return}
+  if(!/^(\+?63|0)?9\d{2}[\s-]?\d{3}[\s-]?\d{4}$/.test(mob.replace(/\s+/g," "))){err.textContent="Please use a PH mobile number, e.g. 0917 123 4567.";$("sx-mobile").focus();return}
+  if(S.paymode==="now"&&!S.file&&!$("sx-refno").value.trim()){err.textContent="Add a reference number or upload your proof of payment, or choose \"Send me instructions\".";return}
+  if(!$("sx-agree").checked){err.textContent="Please tick the box to confirm you've read how reservations work.";return}
+  var e=estimate(), ref=refCode(), lv=$("sx-level").querySelector("strong").textContent.replace(".","");
+  var addons={}; CONFIG.addons.forEach(function(a){addons[a.name]=a.options[S.add[a.id]].label});
+  var payload={
+    ref:ref, submittedAt:new Date().toISOString(), date:S.date, daysOut:daysOut(), slot:S.slot, altDate:$("sx-alt").value,
+    guests:S.guests, venue:V().name, occasion:S.occ, space:V().spaces.filter(function(x){return x.id===S.space})[0].label, tier:S.tier, addons:addons,
+    estimateLow:Math.round(e.lo), estimateHigh:Math.round(e.hi), perGuestLow:Math.round(e.lo/S.guests), perGuestHigh:Math.round(e.hi/S.guests),
+    downpayment:S.down, downpaymentPct:Math.round(S.down/e.mid*100), commitment:lv, payMode:S.paymode,
+    refNo:$("sx-refno").value.trim(), amountSent:$("sx-paidamt").value, file:S.paymode==="now"?S.file:null,
+    name:name, org:$("sx-org").value.trim(), mobile:mob, email:em, contactVia:$("sx-contact").value,
+    budget:$("sx-budget").value, heard:$("sx-heard").value,
+    matters:[].map.call(document.querySelectorAll("#sx-matters input:checked"),function(i){return i.value}).join(", "),
+    notes:$("sx-notes").value.trim(), page:location.href
+  };
+  var btn=this; btn.disabled=true; btn.textContent="Sending…";
+  var done=function(){
+    $("sx-form").classList.add("sx-hide"); $("sx-mbar").classList.add("sx-hide"); $("sx-thanks").classList.remove("sx-hide");
+    $("sx-refout").textContent=ref;
+    $("sx-thanksmsg").textContent="We'll reach you on "+payload.contactVia+" within 24 hours to confirm your "+payload.guests+"-guest party at "+payload.venue+" on "+$("sx-sdate").textContent.split(" · ")[0]+"."+(S.paymode==="now"?" We'll verify your "+peso(S.down)+" downpayment and send a receipt.":" We'll send payment instructions for your "+peso(S.down)+" downpayment.");
+    $("sx-thanks").scrollIntoView({behavior:"smooth"});
+  };
+  if(!CONFIG.endpoint){ console.warn("Salakot form: no endpoint set; inquiry not saved", payload); done(); return; }
+  fetch(CONFIG.endpoint,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)})
+    .then(done).catch(function(){btn.disabled=false;btn.textContent="Send my Christmas table request";err.textContent="We couldn't send that. Please check your connection and try again, or message us on Facebook."});
+};
+
+drawVenues(); drawCal(); drawChoices(); drawTiers(); drawAddons(); update();
+})();
+</script>
+
+</body>
+</html>
